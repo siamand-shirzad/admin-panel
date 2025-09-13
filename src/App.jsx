@@ -1,9 +1,10 @@
 import React from 'react';
+import Index from './layouts/admin/Index';
 
 const App = () => {
   return (
-    <div>
-      <h1 className='text-2xl font-extrabold'>سلام</h1>
+    <div className='App'>
+      <Index/>
       
     </div>
   );
