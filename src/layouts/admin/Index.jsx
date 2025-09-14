@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import AdminContextProvider, { AdminContext } from '../../context/AdminLayoutContext';
 import Navbar from './navbar/Index';
 import Sidebar from './sidebar/Index';
-import Dashbord from '../../pages/Dashbord';
+import Dashbord from '../../pages/dashbord/Dashbord';
 
 const Index = () => {
 	const { showSidebar } = useContext(AdminContext);
