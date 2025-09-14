@@ -20,6 +20,7 @@ export const setDashboardChart = (labels , datapoints)=>{
         data: data,
         options: {
             responsive: true,
+            maintainAspectRatio: false,
             plugins: {
                 title: {
                     display: true,

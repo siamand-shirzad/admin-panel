@@ -68,8 +68,8 @@ const Dashbord = () => {
 
 				</div>
 
-				<div className="col-12 col-lg-6">
-					<canvas id="myChart" height="195"></canvas>
+				<div className="col-12 col-lg-6 ">
+					<canvas id="myChart" height="170"></canvas>
 				</div>
 			</div>
 		</div>

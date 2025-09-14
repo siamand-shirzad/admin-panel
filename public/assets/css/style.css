@@ -200,6 +200,7 @@ th {
 }
 
 #sidebar_section:hover .mini_sidebar.collapsedd {
+	overflow-y: auto;
 	width: 250px;
 }
 
