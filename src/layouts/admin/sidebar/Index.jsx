@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { AdminContext } from '../../../context/AdminLayoutContext';
+import Avatar from './Avatar'
 
 const Index = () => {
 	const {showSidebar} = useContext(AdminContext)
@@ -7,12 +8,7 @@ const Index = () => {
 			<section id="sidebar_section">
 				<div className={`mini_sidebar collapsedd bg-dark h-100 ${showSidebar ? 'expanded' : null}`}>
 					<ul className="p-0 m-0">
-						<li className="pt-1 pb-2 d-flex flex-column avatar_li position-relative">
-							<span className="avatar_box">
-								<img className="w-100 rounded-circle" src="/assets/images/avatar/user2.jpg" />
-							</span>
-							<div className="sidebar_avatar_name text-center hiddenable">قاسم بساکی</div>
-						</li>
+						<Avatar name="سیامند شیرزاد" imagePath="/assets/images/avatar/user2.jpg"  />
 						<li
 							className="py-1 text-start pe-4 sidebar_menu_item mt-2 active"
 							data-section-id="dashboard_section">
