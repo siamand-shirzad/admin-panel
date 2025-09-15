@@ -22,6 +22,13 @@ a {
 	text-decoration: none !important;
 }
 
+.modal-backdrop.fade{
+	display: none !important;
+}
+.navbar.fixed-top{
+	z-index: unset !important;
+}
+
 /* scrollbars ------------------ */
 ::-webkit-scrollbar {
 	width: 5px !important;
@@ -192,7 +199,7 @@ th {
 	top: 64px;
 	height: calc(100vh - 64px);
 	padding: 0;
-	z-index: 1000;
+
 }
 #sidebar_section .mini_sidebar {
 	width: 70px;
