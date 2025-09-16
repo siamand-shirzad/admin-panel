@@ -1,7 +1,9 @@
-import { createPortal } from "react-dom";
+import { createPortal } from 'react-dom';
+import ModalsContainer from '../../components/ModalsContainer';
 
 const AddCategory = () => {
-	return createPortal( (
+	return createPortal(
+		<ModalsContainer>
 			<div className="modal fade" id="add_product_category_modal" tabindex="-1" aria-hidden="true">
 				<div className="modal-dialog modal-fullscreen">
 					<div className="modal-content">
@@ -19,32 +21,36 @@ const AddCategory = () => {
 							<div className="container">
 								<div className="row justify-content-center">
 									<div className="col-12 col-md-6 col-lg-8">
-										<div className="input-group mb-3 dir-ltr " >
+										<div className="input-group mb-3 dir-ltr ">
 											<select type="text" className="form-control">
 												<option value="1">بدون والد</option>
 												<option value="1">دسته شماره 1</option>
 											</select>
-											<span className="input-group-text w_6rem justify-content-center">دسته والد</span>
+											<span className="input-group-text w_6rem justify-content-center">
+												دسته والد
+											</span>
 										</div>
 									</div>
 									<div className="col-12 col-md-6 col-lg-8">
-										<div className="input-group mb-3 dir-ltr" >
+										<div className="input-group mb-3 dir-ltr">
 											<input type="text" className="form-control" placeholder="عنوان دسته" />
 											<span className="input-group-text w_6rem justify-content-center">عنوان</span>
 										</div>
 									</div>
 									<div className="col-12 col-md-6 col-lg-8">
-										<div className="input-group mb-3 dir-ltr" >
+										<div className="input-group mb-3 dir-ltr">
 											<textarea
 												type="text"
 												className="form-control"
 												placeholder="توضیحات"
 												rows="5"></textarea>
-											<span className="input-group-text w_6rem justify-content-center">توضیحات</span>
+											<span className="input-group-text w_6rem justify-content-center">
+												توضیحات
+											</span>
 										</div>
 									</div>
 									<div className="col-12 col-md-6 col-lg-8">
-										<div className="input-group mb-3 dir-ltr" >
+										<div className="input-group mb-3 dir-ltr">
 											<input type="file" className="form-control" placeholder="تصویر" />
 											<span className="input-group-text w_6rem justify-content-center">تصویر</span>
 										</div>
@@ -76,9 +82,8 @@ const AddCategory = () => {
 					</div>
 				</div>
 			</div>
-	),document.getElementById("modal-root"))
+		</ModalsContainer>
+	);
 };
 
 export default AddCategory;
-
-
