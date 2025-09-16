@@ -1,7 +1,7 @@
+import { createPortal } from "react-dom";
 
 const AddCategory = () => {
-	return (
-		<>
+	return createPortal( (
 			<div className="modal fade" id="add_product_category_modal" tabindex="-1" aria-hidden="true">
 				<div className="modal-dialog modal-fullscreen">
 					<div className="modal-content">
@@ -76,8 +76,9 @@ const AddCategory = () => {
 					</div>
 				</div>
 			</div>
-		</>
-	);
+	),document.getElementById("modal-root"))
 };
 
 export default AddCategory;
+
+
