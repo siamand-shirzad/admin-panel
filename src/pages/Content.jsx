@@ -12,8 +12,8 @@ const Content = () => {
 			id="content_section"
 			className={`bg-light py-2 px-3 ${showSidebar ? 'with_sidebar' : null}`}>
 			{/* <Dashbord/> */}
-			{/* <Category /> */}
-			<Product/>
+			<Category />
+			{/* <Product/> */}
 		</section>
 	);
 };
