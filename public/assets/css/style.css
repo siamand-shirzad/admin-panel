@@ -28,6 +28,16 @@ a {
 .navbar.fixed-top{
 	z-index: unset !important;
 }
+.disabled{
+	pointer-events: none !important;
+	opacity: .5;
+}
+.page-link.alert {
+  padding: 0.375rem 0.75rem !important; 
+  margin: 0 !important;
+	border-radius: 0 !important;
+}
+
 
 /* scrollbars ------------------ */
 ::-webkit-scrollbar {
@@ -85,6 +95,9 @@ a {
 
 .no_pointer {
 	cursor: default !important;
+}
+.no_padding{
+	padding: 0 !important;
 }
 
 .no_hover {
