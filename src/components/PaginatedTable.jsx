@@ -1,27 +1,50 @@
 import { useEffect, useState } from 'react';
+import AddCategory from '../pages/category/AddCategory';
 
 const numOfPage = 2;
 const PaginatedTable = ({ data, dataInfo, additionField }) => {
+	const [initData, setInitData] = useState(data);
 	const [tableData, setTableData] = useState([]);
 	const [currentPage, setCurrentPage] = useState(1);
 	const [pages, setPages] = useState([]);
 	const [pageCount, setPageCount] = useState(1);
+	const [searchChar, setSearchChar] = useState('');
 	useEffect(() => {
-		let pCount = Math.ceil(data.length / numOfPage);
+		let pCount = Math.ceil(initData.length / numOfPage);
 		setPageCount(pCount);
 		let pArr = [];
 		for (let i = 1; i <= pCount; i++) pArr = [...pArr, i];
 		setPages(pArr);
-	}, []);
+	}, [initData]);
 
 	useEffect(() => {
 		let start = currentPage * numOfPage - numOfPage;
 		let end = currentPage * numOfPage;
-		setTableData(data.slice(start, end));
-	}, [currentPage]);
+		setTableData(initData.slice(start, end));
+	}, [currentPage, initData]);
+	useEffect(() => {
+		setInitData(data.filter(d => d.title.includes(searchChar)));
+		setCurrentPage(1);
+	}, [searchChar]);
 
 	return (
-		<div>
+		<>
+			<div className="row justify-content-between">
+				<div className="col-10 col-md-6 col-lg-4">
+					<div className="input-group mb-3 dir_ltr ">
+						<input
+							type="text"
+							className="form-control"
+							placeholder="قسمتی از عنوان را وارد کنید"
+							onChange={(e) => setSearchChar(e.target.value)}
+						/>
+						<span className="input-group-text">جستجو</span>
+					</div>
+				</div>
+				<div className="col-2 col-md-6 col-lg-4 d-flex flex-column align-items-end">
+					<AddCategory />
+				</div>
+			</div>
 			<table className="table table-responsive text-center table-hover table-bordered">
 				<thead className="table-secondary">
 					<tr>
@@ -71,7 +94,7 @@ const PaginatedTable = ({ data, dataInfo, additionField }) => {
 					</li>
 				</ul>
 			</nav>
-		</div>
+		</>
 	);
 };
 
