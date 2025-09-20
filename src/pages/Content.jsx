@@ -4,6 +4,7 @@ import { useContext } from 'react';
 import { AdminContext } from '../context/AdminLayoutContext';
 import Product from './product/Product';
 import { Route, Routes } from 'react-router-dom';
+import Colors from './colors/colors';
 
 const Content = () => {
   	const { showSidebar } = useContext(AdminContext);
@@ -17,6 +18,7 @@ const Content = () => {
 					<Route path='/categories' element={<Category />} />
 					<Route path='/products' element={<Product/>} />
 					<Route path='*' element={<Dashbord/>} />
+					<Route path='/colors' element={<Colors/>} />
 				</Routes>
 			
 		</section>
