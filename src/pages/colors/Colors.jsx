@@ -1,3 +1,4 @@
+import AddColors from "./AddColors";
 import ColorsTable from "./ColorsTable";
 
 const Colors = () => {
@@ -12,12 +13,7 @@ const Colors = () => {
 						</div>
 					</div>
 					<div className="col-2 col-md-6 col-lg-4 d-flex flex-column align-items-end">
-						<button
-							className="btn btn-success d-flex justify-content-center align-items-center"
-							data-bs-toggle="modal"
-							data-bs-target="#add_color_modal">
-							<i className="fas fa-plus text-light"></i>
-						</button>
+            <AddColors/>
 					</div>
 				</div>
         <ColorsTable/>
