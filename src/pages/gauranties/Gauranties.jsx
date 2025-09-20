@@ -1,4 +1,5 @@
-import GaurantiesTable from "./GaurantiesTable";
+import AddGuaranty from "./AddGuaranty";
+import GuarantiesTable from "./GuarantiesTable";
 
 const Gauranties = () => {
 	return (
@@ -13,15 +14,10 @@ const Gauranties = () => {
 						</div>
 					</div>
 					<div className="col-2 col-md-6 col-lg-4 d-flex flex-column align-items-end">
-						<button
-							className="btn btn-success d-flex justify-content-center align-items-center"
-							data-bs-toggle="modal"
-							data-bs-target="#add_guarantee_modal">
-							<i className="fas fa-plus text-light"></i>
-						</button>
+						<AddGuaranty/>
 					</div>
 				</div>
-				<GaurantiesTable/>
+				<GuarantiesTable/>
 			</div>
 		</>
 	);

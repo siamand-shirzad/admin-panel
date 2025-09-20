@@ -1,6 +1,6 @@
 import React from 'react';
 
-const GaurantiesTable = () => {
+const GuarantiesTable = () => {
 	return (
 		<>
 			<table className="table table-responsive text-center table-hover table-bordered">
@@ -62,4 +62,4 @@ const GaurantiesTable = () => {
 	);
 };
 
-export default GaurantiesTable;
+export default GuarantiesTable;
