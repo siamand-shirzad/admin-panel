@@ -13,7 +13,7 @@ const AddGuaranty = () => {
 
 			<ModalsContainer
       id={"add_guarantee_modal"}
-      fullscreen={true}
+      fullscreen={false}
       title={"افزودن گارانتی"}
       >
 

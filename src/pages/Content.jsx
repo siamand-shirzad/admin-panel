@@ -6,6 +6,7 @@ import Product from './product/Product';
 import { Route, Routes } from 'react-router-dom';
 import Colors from './colors/colors';
 import Gauranties from './gauranties/Gauranties';
+import Brands from './brands/Brands';
 
 const Content = () => {
   	const { showSidebar } = useContext(AdminContext);
@@ -21,6 +22,7 @@ const Content = () => {
 					<Route path='*' element={<Dashbord/>} />
 					<Route path='/colors' element={<Colors/>} />
 					<Route path='/gauranties' element={<Gauranties/>} />
+					<Route path='/brands' element={<Brands/>} />
 				</Routes>
 			
 		</section>
