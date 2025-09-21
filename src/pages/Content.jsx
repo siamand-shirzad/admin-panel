@@ -8,6 +8,7 @@ import Colors from './colors/colors';
 import Gauranties from './gauranties/Gauranties';
 import Brands from './brands/Brands';
 import Discounts from './discounts/Discounts';
+import ManageCarts from './manageCarts/ManageCarts';
 
 const Content = () => {
   	const { showSidebar } = useContext(AdminContext);
@@ -25,6 +26,7 @@ const Content = () => {
 					<Route path='/gauranties' element={<Gauranties/>} />
 					<Route path='/brands' element={<Brands/>} />
 					<Route path='/discounts' element={<Discounts/>} />
+					<Route path='/manage-carts' element={<ManageCarts/>} />
 				</Routes>
 			
 		</section>

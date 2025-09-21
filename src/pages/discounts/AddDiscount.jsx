@@ -10,7 +10,7 @@ const AddDiscount = () => {
 				data-bs-target="#add_discount_modal">
 				<i className="fas fa-plus text-light"></i>
 			</button>
-			<ModalsContainer id={'add_discount_modal'} fullscreen={false} title={'	افزودن کد تخفیف'}>
+			<ModalsContainer id={'add_discount_modal'} fullscreen={true} title={'	افزودن کد تخفیف'}>
 				{' '}
 				<div className="container">
 					<div className="row justify-content-center">
