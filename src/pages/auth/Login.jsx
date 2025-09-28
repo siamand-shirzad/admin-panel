@@ -3,6 +3,7 @@ import * as Yup from 'yup';
 import AuthFormikControl from '../../components/authForm/AuthFormikControl';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { Alert } from '../../utils/alert';
 
 const initialValues = {
   phone: '',
@@ -29,6 +30,9 @@ const onSubmit = (navigate) => async (values, { setSubmitting }) => {
     if (res.status === 200) {
       localStorage.setItem('loginToken', JSON.stringify(res.data));
       navigate("/");
+    }else{
+      Alert("متاسفم",res.data.message,"error")
+
     }
   } catch (error) {
     console.error(error);
