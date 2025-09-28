@@ -11,13 +11,11 @@ const onSubmit = values => {
 	console.log(values);
 };
 const validationSchema = Yup.object({
-	phone: Yup.number().required('لطفا این قسمت را پر کنید'),
-	password: Yup.string()
-		.required('لطفا این قسمت را پر کنید')
-		.matches(
-			/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
-			'حد اقل یک حرف بزرگ و یک حرف کوچک لاتین و اعداد و کارکترهای خاص استفاده کنید'
-		)
+  phone: Yup.number().required("لطفا این قسمت را پر کنید"),
+  password: Yup.string()
+    .required("لطفا این قسمت را پر کنید")
+    .matches(/^[a-zA-Z0-9@!%$?&]+$/, "فقط از حروف و اعداد استفاده شود"),
+  remember: Yup.boolean(),
 });
 
 const Login = () => {
