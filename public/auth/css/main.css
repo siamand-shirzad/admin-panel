@@ -193,6 +193,12 @@ iframe {
 .login100-form {
   width: 290px;
 }
+.login100-form-btn:disabled {
+  background-color: #5c5c5c;  /* خاکستری روشن */
+  cursor: not-allowed;     /* نشانگر غیرقابل کلیک */
+  opacity: 0.7;            /* کمی محو */
+}
+
 
 .login100-form-title {
   font-size: 24px;
