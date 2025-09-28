@@ -1,18 +1,17 @@
-import {  Form, Formik } from 'formik';
+import { Form, Formik } from 'formik';
 import * as Yup from 'yup';
 import AuthFormikControl from '../../components/authForm/AuthFormikControl';
 
 const initialValues = {
 	phone: '',
 	password: '',
-  remember: false
+	remember: false
 };
 const onSubmit = values => {
 	console.log(values);
 };
 const validationSchema = Yup.object({
-	phone: Yup.number()
-		.required('لطفا این قسمت را پر کنید'),
+	phone: Yup.number().required('لطفا این قسمت را پر کنید'),
 	password: Yup.string()
 		.required('لطفا این قسمت را پر کنید')
 		.matches(
@@ -48,15 +47,8 @@ const Login = () => {
 								icon="fa fa-lock"
 								label="رمز عبور"
 							/>
+							<AuthFormikControl control="switch" name="remember" label="مرا بخاطر بسپارید" />
 
-							<div className="container-login100-form-btn">
-								<button className="login100-form-btn">ورود</button>
-							</div>
-							<div className="text-center p-t-12 p-b-45">
-								<a className="txt2" href="#">
-									فراموش کردید؟
-								</a>
-							</div>
 							<div className="text-center pos-absolute m-auto w-100 bottom-0">
 								<a className="txt2" href="#">
 									ثبت نام
