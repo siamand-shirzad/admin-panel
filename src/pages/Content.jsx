@@ -4,12 +4,12 @@ import { useContext } from 'react';
 import { AdminContext } from '../context/AdminLayoutContext';
 import Product from './product/Product';
 import { Route, Routes } from 'react-router-dom';
-import Colors from './colors/colors';
 import Gauranties from './gauranties/Gauranties';
 import Brands from './brands/Brands';
 import Discounts from './discounts/Discounts';
 import ManageCarts from './manageCarts/ManageCarts';
 import Orders from './orders/Orders';
+import Colors from './colors/Colors';
 
 const Content = () => {
   	const { showSidebar } = useContext(AdminContext);
