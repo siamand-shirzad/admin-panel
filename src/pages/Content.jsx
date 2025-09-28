@@ -19,7 +19,7 @@ const Content = () => {
 			id="content_section"
 			className={`bg-light py-2 px-3 ${showSidebar ? 'with_sidebar' : null}`}>
 				<Routes>
-					<Route path='/' element={<Dashbord/>} />
+					{/* <Route path='/' element={<Dashbord/>} /> */}
 					<Route path='/categories' element={<Category />} />
 					<Route path='/products' element={<Product/>} />
 					<Route path='*' element={<Dashbord/>} />

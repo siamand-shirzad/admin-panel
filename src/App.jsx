@@ -1,10 +1,12 @@
 import React from 'react';
-import Index from './layouts/admin/Index';
+import AdminLayout from './layouts/admin/Index';
+import AuthLayout from './layouts/auth/AuthLayout';
 
 const App = () => {
   return (
     <div className='App'>
-      <Index/>
+      {/* <AdminLayout/> */}
+      <AuthLayout/>
       
     </div>
   );
