@@ -1,27 +1,36 @@
+import { useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
-import AdminContextProvider, { AdminContext } from '../../context/AdminLayoutContext';
+import AdminContextProvider from '../../context/AdminLayoutContext';
 import { useIsLogin } from '../../hooks/authHook';
 import Content from '../../pages/Content';
 import Navbar from './navbar/Index';
 import Sidebar from './sidebar/Index';
+import { showLoadingAlert, closeLoadingAlert } from '../../utils/alert';
 
 const Index = () => {
-	const [loading, isLogin] =useIsLogin()
-	return (
-		<AdminContextProvider>
-			{loading ? (
-				<h1 className="text-center waiting_center">لطفا صبر کنید...</h1>
-			) : isLogin ? (
-				<>
-					<Content />
-					<Navbar />
-					<Sidebar />
-				</>
-			) : (
-				<Navigate to={'/auth/login'} />
-			)}
-		</AdminContextProvider>
-	);
+  const [loading, isLogin] = useIsLogin();
+
+  useEffect(() => {
+    if (loading) {
+      showLoadingAlert('در حال بارگذاری داشبورد...');
+    } else {
+      closeLoadingAlert();
+    }
+  }, [loading]);
+
+  return (
+    <AdminContextProvider>
+      {!loading && isLogin ? (
+        <>
+          <Content />
+          <Navbar />
+          <Sidebar />
+        </>
+      ) : !loading && !isLogin ? (
+        <Navigate to="/auth/login" />
+      ) : null}
+    </AdminContextProvider>
+  );
 };
 
 export default Index;
