@@ -12,7 +12,6 @@ const Logout = () => {
 			try {
 				const res = await logoutService();
 				if (res.status == 200) {
-					console.log(res.status);
 					setloading(false);
           closeLoadingAlert()
 					localStorage.removeItem('loginToken');

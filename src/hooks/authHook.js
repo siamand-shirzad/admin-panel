@@ -16,7 +16,8 @@ export const useIsLogin = () => {
 		}
 	};
 	useEffect(() => {
-		const loginToken = JSON.parse(localStorage.getItem('loginToken'));
+		const tokenStr = localStorage.getItem('loginToken');
+		const loginToken = tokenStr ? JSON.parse(tokenStr) : null;
 		if (loginToken) {
 			handleCheckLogin();
 		} else {
