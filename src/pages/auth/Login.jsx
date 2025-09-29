@@ -23,6 +23,7 @@ const validationSchema = Yup.object({
 });
 
 const onSubmit = (navigate) => async (values, { setSubmitting }) => {
+  localStorage.removeItem("loginToken")
   try {
     const res = await loginService(values)
     if (res.status === 200) {
