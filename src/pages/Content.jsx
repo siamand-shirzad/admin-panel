@@ -10,6 +10,7 @@ import Discounts from './discounts/Discounts';
 import ManageCarts from './manageCarts/ManageCarts';
 import Orders from './orders/Orders';
 import Colors from './colors/Colors';
+import Logout from './auth/Logout';
 
 const Content = () => {
   	const { showSidebar } = useContext(AdminContext);
@@ -29,6 +30,7 @@ const Content = () => {
 					<Route path='/discounts' element={<Discounts/>} />
 					<Route path='/manage-carts' element={<ManageCarts/>} />
 					<Route path='/orders' element={<Orders/>} />
+					<Route path='/logout' element={<Logout/>} />
 				</Routes>
 			
 		</section>

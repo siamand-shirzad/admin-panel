@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 const LeftContent = () => {
 	return (
@@ -33,9 +34,9 @@ const LeftContent = () => {
 				<hr />
 				<li className="d-flex justify-content-center align-items-center px-2">
 					<i className="fas fa-power-off"></i>
-					<a className="dropdown-item" href="#">
+					<NavLink to={"/logout"} className="dropdown-item" >
 						خروج
-					</a>
+					</NavLink>
 				</li>
 			</ul>
 			<i className="far fa-bell fa-2x mx-3 pointer position-relative">

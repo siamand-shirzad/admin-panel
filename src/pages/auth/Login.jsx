@@ -1,7 +1,7 @@
 import { Form, Formik } from 'formik';
 import * as Yup from 'yup';
 import AuthFormikControl from '../../components/authForm/AuthFormikControl';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Alert } from '../../utils/alert';
 
@@ -32,10 +32,11 @@ const onSubmit = (navigate) => async (values, { setSubmitting }) => {
       navigate("/");
     }else{
       Alert("متاسفم",res.data.message,"error")
-
+      
     }
   } catch (error) {
     console.error(error);
+    Alert("متاسفم",error.message,"error")
   } finally {
     setSubmitting(false);
   }
