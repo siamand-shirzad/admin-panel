@@ -4,6 +4,7 @@ import AuthFormikControl from '../../components/authForm/AuthFormikControl';
 import axios, { AxiosError } from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Alert } from '../../utils/alert';
+import { loginService } from '../../services/auth';
 
 const initialValues = {
   phone: '',
@@ -23,10 +24,7 @@ const validationSchema = Yup.object({
 
 const onSubmit = (navigate) => async (values, { setSubmitting }) => {
   try {
-    const res = await axios.post('https://ecomadminapi.azhadev.ir/api/auth/login', {
-      ...values,
-      remember: values.remember ? 1 : 0
-    });
+    const res = await loginService(values)
     if (res.status === 200) {
       localStorage.setItem('loginToken', JSON.stringify(res.data));
       navigate("/");
@@ -35,7 +33,6 @@ const onSubmit = (navigate) => async (values, { setSubmitting }) => {
       
     }
   } catch (error) {
-    console.error(error);
     Alert("متاسفم",error.message,"error")
   } finally {
     setSubmitting(false);
