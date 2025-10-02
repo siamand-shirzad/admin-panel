@@ -1,53 +1,26 @@
+import { useEffect, useState } from 'react';
 import PaginatedTable from '../../components/PaginatedTable';
+import { getCategoriesService } from '../../services/category';
+import { Alert } from '../../utils/alert';
 
 const CategoryTable = () => {
-	const data = [
-		{
-			id: '1',
-			category: 'aaa',
-			title: 'bbb',
-			price: '1111',
-			stock: '5',
-			like_count: '2',
-			status: '1'
-		},
-		{
-			id: '2',
-			category: 'ccc',
-			title: 'ddd',
-			price: '2222',
-			stock: '7',
-			like_count: '2',
-			status: '1'
-		},
-		{
-			id: '3',
-			category: 'ccc',
-			title: 'ddd',
-			price: '2222',
-			stock: '7',
-			like_count: '2',
-			status: '1'
-		},
-		{
-			id: '4',
-			category: 'ccc',
-			title: 'ddd',
-			price: '2222',
-			stock: '7',
-			like_count: '2',
-			status: '1'
-		},
-		{
-			id: '5',
-			category: 'ccc',
-			title: 'ddd',
-			price: '2222',
-			stock: '7',
-			like_count: '2',
-			status: '1'
+	const [data, setData] = useState([]);
+	const handleGetCategories = async () => {
+		try {
+			const res = await getCategoriesService();
+			if (res.status == 200) {
+				console.log(res.data.data);
+				setData(res.data.data)
+			} else {
+				Alert('خطا  !', res.data.message, 'error');
+			}
+		} catch (error) {
+			Alert('خطا  !', error.message, 'error');
 		}
-	];
+	};
+	useEffect(() => {
+		handleGetCategories();
+	}, []);
 
 	const dataInfo = [
 		{ field: 'id', title: '#' },
@@ -56,10 +29,9 @@ const CategoryTable = () => {
 	];
 	const additionField = {
 		title: 'عملیات',
-		elements: (itemId) => additionalElements(itemId)
+		elements: itemId => additionalElements(itemId)
 	};
-	const additionalElements = (itemId) => {
-		
+	const additionalElements = itemId => {
 		return (
 			<>
 				<i
@@ -88,7 +60,7 @@ const CategoryTable = () => {
 	};
 	return (
 		<>
-			<PaginatedTable data={data} dataInfo={dataInfo} additionField={additionField} />
+			<PaginatedTable data={data} dataInfo={dataInfo} additionField={additionField} numOfPage={2} />
 		</>
 	);
 };

@@ -18,6 +18,7 @@ export const closeLoadingAlert = () => {
   Swal.close();
 };
 
+// alert error or success
 export const Alert = (title, text, icon) => {
 	Swal.fire({
 		title,

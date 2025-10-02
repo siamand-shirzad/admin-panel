@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 import AddCategory from '../pages/category/AddCategory';
 
-const numOfPage = 2;
-const PaginatedTable = ({ data, dataInfo, additionField }) => {
+const PaginatedTable = ({ data, dataInfo, additionField , numOfPage }) => {
 	const [initData, setInitData] = useState(data);
 	const [tableData, setTableData] = useState([]);
 	const [currentPage, setCurrentPage] = useState(1);
@@ -21,11 +20,11 @@ const PaginatedTable = ({ data, dataInfo, additionField }) => {
 		let start = currentPage * numOfPage - numOfPage;
 		let end = currentPage * numOfPage;
 		setTableData(initData.slice(start, end));
-	}, [currentPage, initData]);
+	}, [currentPage, initData ]);
 	useEffect(() => {
 		setInitData(data.filter(d => d.title.includes(searchChar)));
 		setCurrentPage(1);
-	}, [searchChar]);
+	}, [searchChar,data]);
 
 	return (
 		<>
