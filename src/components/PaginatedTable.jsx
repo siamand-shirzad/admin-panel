@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import AddCategory from '../pages/category/AddCategory';
 
-const PaginatedTable = ({ data, dataInfo, additionField , numOfPage }) => {
+const PaginatedTable = ({ data, dataInfo, additionField, numOfPage }) => {
 	const [initData, setInitData] = useState(data);
 	const [tableData, setTableData] = useState([]);
 	const [currentPage, setCurrentPage] = useState(1);
@@ -20,11 +20,11 @@ const PaginatedTable = ({ data, dataInfo, additionField , numOfPage }) => {
 		let start = currentPage * numOfPage - numOfPage;
 		let end = currentPage * numOfPage;
 		setTableData(initData.slice(start, end));
-	}, [currentPage, initData ]);
+	}, [currentPage, initData]);
 	useEffect(() => {
 		setInitData(data.filter(d => d.title.includes(searchChar)));
 		setCurrentPage(1);
-	}, [searchChar,data]);
+	}, [searchChar, data]);
 
 	return (
 		<>
@@ -35,7 +35,7 @@ const PaginatedTable = ({ data, dataInfo, additionField , numOfPage }) => {
 							type="text"
 							className="form-control"
 							placeholder="قسمتی از عنوان را وارد کنید"
-							onChange={(e) => setSearchChar(e.target.value)}
+							onChange={e => setSearchChar(e.target.value)}
 						/>
 						<span className="input-group-text">جستجو</span>
 					</div>
@@ -50,7 +50,9 @@ const PaginatedTable = ({ data, dataInfo, additionField , numOfPage }) => {
 						{dataInfo.map(i => (
 							<th key={i.field}>{i.title}</th>
 						))}
-						{additionField ? <th>{additionField.title}</th> : null}
+						{additionField
+							? additionField.map((a, index) => <th key={a.id + '__' + index}>{a.title}</th>)
+							: null}
 					</tr>
 				</thead>
 				<tbody>
@@ -59,7 +61,11 @@ const PaginatedTable = ({ data, dataInfo, additionField , numOfPage }) => {
 							{dataInfo.map(i => (
 								<td key={i.field + '_' + d.id}>{d[i.field]}</td>
 							))}
-							{additionField ? <td>{additionField.elements(d.id)}</td> : null}
+							{additionField
+								? additionField.map((a, index) => (
+										<td key={a.id + '__' + index}>{a.elements(d)}</td>
+								  ))
+								: null}
 						</tr>
 					))}
 				</tbody>
