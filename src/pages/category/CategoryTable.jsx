@@ -4,7 +4,7 @@ import { getCategoriesService } from '../../services/category';
 import { Alert } from '../../utils/alert';
 import ShowInMenu from './tableAdditions/ShowInMenu';
 import Actions from './tableAdditions/Actions';
-import { useLocation, useParams } from 'react-router-dom';
+import { Outlet, useLocation, useParams } from 'react-router-dom';
 
 const CategoryTable = () => {
 	const params = useParams();
@@ -44,12 +44,7 @@ const CategoryTable = () => {
 	];
 	return (
 		<>
-			{location.state && (
-				<h5 className="text-center">
-					<span>زیرگروه: </span>
-					<span className="text-info">{location.state.parentData.title}</span>
-				</h5>
-			)}
+			<Outlet/>
 			<PaginatedTable data={data} dataInfo={dataInfo} additionField={additionField} numOfPage={2} />
 		</>
 	);
