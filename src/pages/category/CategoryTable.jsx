@@ -5,6 +5,7 @@ import { Alert } from '../../utils/alert';
 import ShowInMenu from './tableAdditions/ShowInMenu';
 import Actions from './tableAdditions/Actions';
 import { Outlet, useLocation, useParams } from 'react-router-dom';
+import { convertDateToJalali } from '../../utils/convertDateToJalali';
 
 const CategoryTable = () => {
 	const params = useParams();
@@ -32,10 +33,10 @@ const CategoryTable = () => {
 		{ field: 'id', title: '#' },
 		{ field: 'title', title: 'عنوان محصول' },
 		{ field: 'parent_id', title: 'والد' },
-		{ field: 'created_at', title: 'تاریخ' }
 	];
 
 	const additionField = [
+		{title:"تاریخ", elements: (rowData)=>convertDateToJalali(rowData.created_at) },
 		{ title: 'نمایش در منو', elements: rowData => <ShowInMenu rowData={rowData} /> },
 		{
 			title: 'عملیات',
