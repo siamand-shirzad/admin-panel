@@ -16,11 +16,9 @@ const CategoryTable = () => {
 			const res = await getCategoriesService(params?.categoryId);
 			if (res.status == 200) {
 				setData(res.data.data);
-			} else {
-				Alert('خطا  !', res.data.message, 'error');
 			}
 		} catch (error) {
-			Alert('خطا  !', error.message, 'error');
+			
 		}
 	};
 	useEffect(() => {
