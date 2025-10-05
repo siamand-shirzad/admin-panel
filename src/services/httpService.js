@@ -4,7 +4,9 @@ import { Alert } from "../utils/alert";
 
 axios.interceptors.response.use((res)=>{
     if (res.status!= 200 && res.status!= 201) {
-        Alert("مشکل   !",res.data.message,"warning")
+        Alert("مشکل   !",res.data.title,"warning")
+        console.log(res);
+        
     }
     return res
 },(error)=>{

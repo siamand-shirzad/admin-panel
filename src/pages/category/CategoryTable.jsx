@@ -44,7 +44,7 @@ const CategoryTable = () => {
 	return (
 		<>
 			<Outlet/>
-			<PaginatedTable data={data} dataInfo={dataInfo} additionField={additionField} numOfPage={2} />
+			<PaginatedTable data={data} dataInfo={dataInfo} additionField={additionField} numOfPage={4} />
 		</>
 	);
 };
