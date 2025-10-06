@@ -15,7 +15,7 @@ const initialValues = {
 	show_in_menu: true
 };
 
-const onSubmit = async (values, actions) => {
+const onSubmit = async (values, actions,setForceRender) => {
 	try {
 		values = {
 			...values,
@@ -25,6 +25,8 @@ const onSubmit = async (values, actions) => {
     const res = await addNewCategoryService(values)
     if (res.status == 201) {
       Alert("رکورد ثبت شد","عملیات با موفقیت انجام شد","success")
+      actions.resetForm()
+      setForceRender(prev=>prev+1)
     }
 	} catch (error) {}
 };
@@ -56,7 +58,7 @@ const validationSchema = Yup.object({
 //   { id: 2, value: "test2" },
 // ];
 
-const AddCategory = () => {
+const AddCategory = ({setForceRender}) => {
 	const [parents, setParents] = useState([]);
 	const handleGetParentsCategories = async () => {
 		try {
@@ -91,7 +93,7 @@ const AddCategory = () => {
 				title="افزودن دسته محصولات">
 				<Formik
 					initialValues={initialValues}
-					onSubmit={onSubmit}
+					onSubmit={(values,options)=>onSubmit(values,options,setForceRender)}
 					validationSchema={validationSchema}>
 					<Form>
 						<div className="container">

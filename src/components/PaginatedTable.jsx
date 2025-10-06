@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import AddCategory from '../pages/category/AddCategory';
 
-const PaginatedTable = ({ data, dataInfo, additionField, numOfPage }) => {
+const PaginatedTable = ({ data, dataInfo, additionField, numOfPage ,setForceRender }) => {
 	const [initData, setInitData] = useState(data);
 	const [tableData, setTableData] = useState([]);
 	const [currentPage, setCurrentPage] = useState(1);
@@ -41,7 +41,7 @@ const PaginatedTable = ({ data, dataInfo, additionField, numOfPage }) => {
 					</div>
 				</div>
 				<div className="col-2 col-md-6 col-lg-4 d-flex flex-column align-items-end">
-					<AddCategory />
+					<AddCategory setForceRender={setForceRender} />
 				</div>
 			</div>
 			<table className="table table-responsive text-center table-hover table-bordered">

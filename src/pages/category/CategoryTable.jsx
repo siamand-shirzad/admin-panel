@@ -11,6 +11,7 @@ const CategoryTable = () => {
 	const params = useParams();
 	const location = useLocation();
 	const [data, setData] = useState([]);
+	const [forceRender, setForceRender] = useState(0)
 	const handleGetCategories = async () => {
 		try {
 			const res = await getCategoriesService(params?.categoryId);
@@ -25,7 +26,7 @@ const CategoryTable = () => {
 		console.log(location);
 
 		handleGetCategories();
-	}, [params]);
+	}, [params,forceRender]);
 
 	const dataInfo = [
 		{ field: 'id', title: '#' },
@@ -44,7 +45,7 @@ const CategoryTable = () => {
 	return (
 		<>
 			<Outlet/>
-			<PaginatedTable data={data} dataInfo={dataInfo} additionField={additionField} numOfPage={4} />
+			<PaginatedTable data={data} dataInfo={dataInfo} additionField={additionField} numOfPage={7} setForceRender={setForceRender}  />
 		</>
 	);
 };
