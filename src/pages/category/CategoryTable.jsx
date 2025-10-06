@@ -1,15 +1,13 @@
 import { useEffect, useState } from 'react';
 import PaginatedTable from '../../components/PaginatedTable';
 import { getCategoriesService } from '../../services/category';
-import { Alert } from '../../utils/alert';
 import ShowInMenu from './tableAdditions/ShowInMenu';
 import Actions from './tableAdditions/Actions';
-import { Outlet, useLocation, useParams } from 'react-router-dom';
+import { Outlet,  useParams } from 'react-router-dom';
 import { convertDateToJalali } from '../../utils/convertDateToJalali';
 
 const CategoryTable = () => {
 	const params = useParams();
-	const location = useLocation();
 	const [data, setData] = useState([]);
 	const [forceRender, setForceRender] = useState(0);
 	const [loading, setLoading] = useState(false);

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import ModalsContainer from '../../components/ModalsContainer';
 import * as Yup from 'yup';
 import { Form, Formik } from 'formik';
@@ -6,6 +6,7 @@ import FormikControl from '../../components/form/FormikControl';
 import { Alert } from '../../utils/alert';
 import { addNewCategoryService, getCategoriesService } from '../../services/category';
 import SubmitButton from '../../components/form/SubmitButton';
+import { useParams } from 'react-router-dom';
 
 const initialValues = {
 	parent_id: '',
@@ -16,19 +17,19 @@ const initialValues = {
 	show_in_menu: true
 };
 
-const onSubmit = async (values, actions,setForceRender) => {
+const onSubmit = async (values, actions, setForceRender) => {
 	try {
 		values = {
 			...values,
 			is_active: values.is_active ? 1 : 0,
 			show_in_menu: values.show_in_menu ? 1 : 0
 		};
-    const res = await addNewCategoryService(values)
-    if (res.status == 201) {
-      Alert("رکورد ثبت شد","عملیات با موفقیت انجام شد","success")
-      actions.resetForm()
-      setForceRender(prev=>prev+1)
-    }
+		const res = await addNewCategoryService(values);
+		if (res.status == 201) {
+			Alert('رکورد ثبت شد', 'عملیات با موفقیت انجام شد', 'success');
+			actions.resetForm();
+			setForceRender(prev => prev + 1);
+		}
 	} catch (error) {}
 };
 
@@ -54,12 +55,9 @@ const validationSchema = Yup.object({
 	show_in_menu: Yup.boolean()
 });
 
-// const parents = [
-//   { id: 1, value: "test" },
-//   { id: 2, value: "test2" },
-// ];
-
-const AddCategory = ({setForceRender}) => {
+const AddCategory = ({ setForceRender }) => {
+	const [reInitialValues, setReInitialValues] = useState(null);
+	const params = useParams();
 	const [parents, setParents] = useState([]);
 	const handleGetParentsCategories = async () => {
 		try {
@@ -79,6 +77,14 @@ const AddCategory = ({setForceRender}) => {
 	useEffect(() => {
 		handleGetParentsCategories();
 	}, []);
+	useEffect(() => {
+		if (params.categoryId) {
+			setReInitialValues({ ...initialValues, parent_id: params.categoryId });
+		} else {
+			setReInitialValues(null);
+		}
+	}, [params.categoryId]);
+
 	return (
 		<>
 			<button
@@ -93,9 +99,10 @@ const AddCategory = ({setForceRender}) => {
 				id="add_product_category_modal"
 				title="افزودن دسته محصولات">
 				<Formik
-					initialValues={initialValues}
-					onSubmit={(values,options)=>onSubmit(values,options,setForceRender)}
-					validationSchema={validationSchema}>
+					initialValues={reInitialValues || initialValues}
+					onSubmit={(values, options) => onSubmit(values, options, setForceRender)}
+					validationSchema={validationSchema}
+					enableReinitialize>
 					<Form>
 						<div className="container">
 							<div className="row justify-content-center">
@@ -139,7 +146,7 @@ const AddCategory = ({setForceRender}) => {
 									</div>
 								</div>
 								<div className="btn_box text-center col-12 col-md-6 col-lg-8 mt-4">
-									<SubmitButton/>
+									<SubmitButton />
 								</div>
 							</div>
 						</div>
