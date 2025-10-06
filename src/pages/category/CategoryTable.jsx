@@ -11,31 +11,33 @@ const CategoryTable = () => {
 	const params = useParams();
 	const location = useLocation();
 	const [data, setData] = useState([]);
-	const [forceRender, setForceRender] = useState(0)
+	const [forceRender, setForceRender] = useState(0);
+	const [loading, setLoading] = useState(false);
 	const handleGetCategories = async () => {
+		setLoading(true);
 		try {
 			const res = await getCategoriesService(params?.categoryId);
 			if (res.status == 200) {
 				setData(res.data.data);
 			}
 		} catch (error) {
-			
+		} finally {
+			setLoading(false);
 		}
 	};
 	useEffect(() => {
-		console.log(location);
 
 		handleGetCategories();
-	}, [params,forceRender]);
+	}, [params, forceRender]);
 
 	const dataInfo = [
 		{ field: 'id', title: '#' },
 		{ field: 'title', title: 'عنوان محصول' },
-		{ field: 'parent_id', title: 'والد' },
+		{ field: 'parent_id', title: 'والد' }
 	];
 
 	const additionField = [
-		{title:"تاریخ", elements: (rowData)=>convertDateToJalali(rowData.created_at) },
+		{ title: 'تاریخ', elements: rowData => convertDateToJalali(rowData.created_at) },
 		{ title: 'نمایش در منو', elements: rowData => <ShowInMenu rowData={rowData} /> },
 		{
 			title: 'عملیات',
@@ -44,8 +46,15 @@ const CategoryTable = () => {
 	];
 	return (
 		<>
-			<Outlet/>
-			<PaginatedTable data={data} dataInfo={dataInfo} additionField={additionField} numOfPage={7} setForceRender={setForceRender}  />
+			<Outlet />
+			<PaginatedTable
+				data={data}
+				dataInfo={dataInfo}
+				additionField={additionField}
+				numOfPage={7}
+				setForceRender={setForceRender}
+				loading={loading}
+			/>
 		</>
 	);
 };

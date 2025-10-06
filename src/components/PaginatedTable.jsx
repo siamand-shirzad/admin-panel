@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import AddCategory from '../pages/category/AddCategory';
+import SpinnerLoad from './SpinnerLoad';
 
-const PaginatedTable = ({ data, dataInfo, additionField, numOfPage ,setForceRender }) => {
+const PaginatedTable = ({ data, dataInfo, additionField, numOfPage, setForceRender, loading }) => {
 	const [initData, setInitData] = useState(data);
 	const [tableData, setTableData] = useState([]);
 	const [currentPage, setCurrentPage] = useState(1);
@@ -44,61 +45,71 @@ const PaginatedTable = ({ data, dataInfo, additionField, numOfPage ,setForceRend
 					<AddCategory setForceRender={setForceRender} />
 				</div>
 			</div>
-			<table className="table table-responsive text-center table-hover table-bordered">
-				<thead className="table-secondary">
-					<tr>
-						{dataInfo.map(i => (
-							<th key={i.field}>{i.title}</th>
-						))}
-						{additionField
-							? additionField.map((a, index) => <th key={a.id + '__' + index}>{a.title}</th>)
-							: null}
-					</tr>
-				</thead>
-				<tbody>
-					{tableData.map(d => (
-						<tr key={d.id}>
+			{loading ? (
+				<SpinnerLoad colorClass={'text-primary'} />
+			) : data.length > 1 ? (
+				<table className="table table-responsive text-center table-hover table-bordered">
+					<thead className="table-secondary">
+						<tr>
 							{dataInfo.map(i => (
-								<td key={i.field + '_' + d.id}>{d[i.field]}</td>
+								<th key={i.field}>{i.title}</th>
 							))}
 							{additionField
-								? additionField.map((a, index) => (
-										<td key={a.id + '__' + index}>{a.elements(d)}</td>
-								  ))
+								? additionField.map((a, index) => <th key={a.id + '__' + index}>{a.title}</th>)
 								: null}
 						</tr>
-					))}
-				</tbody>
-			</table>
-			<nav aria-label="Page navigation example" className="d-flex justify-content-center">
-				<ul className="pagination dir_ltr">
-					<li className="page-item pointer">
-						<span
-							className={`page-link pointer ${currentPage == 1 ? 'disabled' : ''}`}
-							aria-label="Previous"
-							onClick={() => setCurrentPage(currentPage - 1)}>
-							<span aria-hidden="true">&raquo;</span>
-						</span>
-					</li>
-					{pages.map(page => (
-						<li key={page} className="page-item ">
-							<div
-								className={`page-link pointer  ${currentPage == page ? 'alert alert-success' : ''}`}
-								onClick={() => setCurrentPage(page)}>
-								{page}
-							</div>
+					</thead>
+					<tbody>
+						{tableData.map(d => (
+							<tr key={d.id}>
+								{dataInfo.map(i => (
+									<td key={i.field + '_' + d.id}>{d[i.field]}</td>
+								))}
+								{additionField
+									? additionField.map((a, index) => (
+											<td key={a.id + '__' + index}>{a.elements(d)}</td>
+									  ))
+									: null}
+							</tr>
+						))}
+					</tbody>
+				</table>
+			) : (
+				<h5 className="text-center my-5 text-danger ">هیچ دسته بندی یافت نشد</h5>
+			)}
+			{pages.length > 1 ? (
+				<nav aria-label="Page navigation example" className="d-flex justify-content-center">
+					<ul className="pagination dir_ltr">
+						<li className="page-item pointer">
+							<span
+								className={`page-link pointer ${currentPage == 1 ? 'disabled' : ''}`}
+								aria-label="Previous"
+								onClick={() => setCurrentPage(currentPage - 1)}>
+								<span aria-hidden="true">&raquo;</span>
+							</span>
 						</li>
-					))}
-					<li className="page-item">
-						<span
-							className={`page-link pointer ${currentPage == pageCount ? 'disabled' : ''}`}
-							aria-label="Next"
-							onClick={() => setCurrentPage(currentPage + 1)}>
-							<span aria-hidden="true">&laquo;</span>
-						</span>
-					</li>
-				</ul>
-			</nav>
+						{pages.map(page => (
+							<li key={page} className="page-item ">
+								<div
+									className={`page-link pointer  ${
+										currentPage == page ? 'alert alert-success' : ''
+									}`}
+									onClick={() => setCurrentPage(page)}>
+									{page}
+								</div>
+							</li>
+						))}
+						<li className="page-item">
+							<span
+								className={`page-link pointer ${currentPage == pageCount ? 'disabled' : ''}`}
+								aria-label="Next"
+								onClick={() => setCurrentPage(currentPage + 1)}>
+								<span aria-hidden="true">&laquo;</span>
+							</span>
+						</li>
+					</ul>
+				</nav>
+			) : null}
 		</>
 	);
 };
