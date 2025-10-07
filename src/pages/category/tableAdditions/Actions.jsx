@@ -1,8 +1,12 @@
 import { useNavigate, useParams } from 'react-router-dom';
+import { useContext } from 'react';
+import { CategoryContext } from '../../../context/CategoryContext';
+
 
 const Actions = ({ rowData }) => {
 	const navigate = useNavigate();
 	const params = useParams();
+	const {setEditId} = useContext(CategoryContext)
 	return (
 		<>
 			{!params.categoryId ? (
@@ -24,7 +28,8 @@ const Actions = ({ rowData }) => {
 				title="ویرایش دسته"
 				data-bs-toggle="modal"
 				data-bs-placement="top"
-				data-bs-target="#add_product_category_modal"></i>
+				data-bs-target="#add_product_category_modal"
+				onClick={() => setEditId(rowData.id)}></i>
 			<i
 				className="fas fa-plus text-success mx-1 hoverable_text pointer has_tooltip"
 				title="افزودن ویژگی"

@@ -1,7 +1,6 @@
-import { Alert } from "bootstrap";
-import { addNewCategoryService } from "../../services/category";
+import { addNewCategoryService, ediCategoryService } from '../../services/category';
 import * as Yup from 'yup';
-
+import { Alert } from '../../utils/alert';
 
 export const initialValues = {
 	parent_id: '',
@@ -12,18 +11,27 @@ export const initialValues = {
 	show_in_menu: true
 };
 
-export const onSubmit = async (values, actions, setForceRender) => {
+export const onSubmit = async (values, actions, setForceRender, editId) => {
 	try {
 		values = {
 			...values,
 			is_active: values.is_active ? 1 : 0,
 			show_in_menu: values.show_in_menu ? 1 : 0
 		};
-		const res = await addNewCategoryService(values);
-		if (res.status == 201) {
-			Alert('رکورد ثبت شد', 'عملیات با موفقیت انجام شد', 'success');
-			actions.resetForm();
-			setForceRender(prev => prev + 1);
+		if (editId) {
+			const res = await ediCategoryService(editId, values);
+			if (res.status == 200) {
+				Alert('ویرایش ثبت شد', res.data.message, 'success');
+				setForceRender(prev => prev + 1);
+				console.log(res);
+			}
+		} else {
+			const res = await addNewCategoryService(values);
+			if (res.status == 201) {
+				Alert('رکورد ثبت شد', 'عملیات با موفقیت انجام شد', 'success');
+				actions.resetForm();
+				setForceRender(prev => prev + 1);
+			}
 		}
 	} catch (error) {}
 };
