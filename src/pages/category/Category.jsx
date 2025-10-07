@@ -1,4 +1,3 @@
-import React from 'react';
 import CategoryTable from './CategoryTable';
 import AddAttributes from './AddAttributes';
 import CategoryContextContainer from '../../context/CategoryContext';
