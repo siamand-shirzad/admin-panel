@@ -11,7 +11,7 @@ axios.interceptors.response.use((res)=>{
     return res
 },(error)=>{
     console.log(error);   
-    Alert(error.response.status,"مشکلی رخ داده است","error")
+    Alert(error.response?.status || error.message,"مشکلی رخ داده است","error")
     return Promise.reject(error)
 })
 
