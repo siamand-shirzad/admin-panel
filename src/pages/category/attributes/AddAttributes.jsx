@@ -1,11 +1,47 @@
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import {  useLocation } from 'react-router-dom';
 import PaginatedTable from '../../../components/PaginatedTable';
 import PrevPageButton from '../../../components/PrevPageButton';
 import ShowInFilter from './ShowInFilter';
 import AttrAction from './AttrAction';
-import { getCategoryAttrsService } from '../../../services/categoryAttr';
+import { addCategoryAttrService, getCategoryAttrsService } from '../../../services/categoryAttr';
+import { Form, Formik } from 'formik';
+import FormikControl from '../../../components/form/FormikControl';
+import * as Yup from "yup";
+import SubmitButton from '../../../components/form/SubmitButton';
+import { Alert } from '../../../utils/alert';
 
+const initialValues = {
+	title: '',
+	unit: '',
+	in_filter: true
+};
+const validationSchema = Yup.object({
+	title: Yup.string()
+		.required('لطفا این قسمت را پر کنید')
+		.matches(/^[\u0600-\u06FF\sa-zA-Z0-9@!%$?&]+$/, 'فقط از حروف و اعداد استفاده شود'),
+	unit: Yup.string()
+		.required('لطفا این قسمت را پر کنید')
+		.matches(/^[\u0600-\u06FF\sa-zA-Z0-9@!%$?&]+$/, 'فقط از حروف و اعداد استفاده شود'),
+	in_filter: Yup.boolean()
+});
+const onSubmit = async (values, actions, catId, setData) => {
+  try {
+    values = {
+      ...values,
+      in_filter: values.in_filter ? 1 : 0
+    }
+    const res = await addCategoryAttrService(catId, values);
+	console.log(res);
+	
+    if (res.status === 201) {
+      Alert('انجام شد', res.data.message, 'success');
+      setData(oldData=>[...oldData, res.data.data])
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
+};
 const AddAttributes = () => {
 	const location = useLocation();
 	const [data, setData] = useState([]);
@@ -28,7 +64,7 @@ const AddAttributes = () => {
 	const dataInfo = [
 		{ field: 'id', title: '#' },
 		{ field: 'title', title: 'عنوان محصول' },
-		{ field: 'unit', title: 'والد' }
+		{ field: 'unit', title: 'واحد' }
 	];
 	const additionField = [
 		{
@@ -48,45 +84,50 @@ const AddAttributes = () => {
 	};
 
 	useEffect(() => {
-		handleGetCategoryAttrs(location.state.categoryData.id)
+		handleGetCategoryAttrs(location.state.categoryData.id);
 	}, []);
 
 	return (
 		<>
-			{' '}
 			<h4 className="text-center my-3">مدیریت ویژگی های دسته بندی</h4>
 			<h6 className="text-center my-3">
 				ویژگی های :<span className="text-primary">{location.state.categoryData.title}</span>
 			</h6>
 			<div className="container">
 				<div className="row justify-content-center">
-					<div className="row my-3">
-						<div className="col-12 col-md-6 col-lg-4 my-1">
-							<input type="text" className="form-control" placeholder="عنوان ویژگی جدید" />
-						</div>
-						<div className="col-12 col-md-6 col-lg-4 my-1">
-							<input type="text" className="form-control" placeholder="واحد ویژگی جدید" />
-						</div>
-						<div className="col-8 col-lg-2 my-1 ">
-							<div className="form-check form-switch d-flex  align-items-center p-0 h-100 dir_ltr">
-								<input
-									className="form-check-input pointer "
-									type="checkbox"
-									id="flexSwitchCheckDefault"
+					<Formik
+						initialValues={initialValues}
+						onSubmit={(values, actions) =>
+							onSubmit(values, actions, location.state.categoryData.id, setData)
+						}
+						validationSchema={validationSchema}>
+						<Form>
+							<div className="row my-3">
+								<FormikControl
+									control="input"
+									type="text"
+									name="title"
+									label="عنوان"
+									className="col-md-6 col-lg-4 my-1"
+									placeholder="عنوان ویژگی جدید"
 								/>
-								<label className="form-check-label pointer" htmlFor="flexSwitchCheckDefault">
-									نمایش در فیلتر
-								</label>
+								<FormikControl
+									control="input"
+									type="text"
+									name="unit"
+									label="واحد"
+									className="col-md-6 col-lg-4 my-1"
+									placeholder="واحد ویژگی جدید"
+								/>
+								<div className="col-8 col-lg-2 my-1">
+									<FormikControl control="switch" name="in_filter" label="نمایش در فیلتر" />
+								</div>
+								<div className="col-4 col-lg-2 d-flex justify-content-center align-items-start my-1">
+									<SubmitButton />
+								</div>
 							</div>
-						</div>
-						<div className="col-4 col-lg-2 d-flex justify-content-center align-items-center my-1">
-							<i
-								className="fas fa-check text-light bg-success rounded-circle p-2 mx-1 hoverable_text hoverable pointer has_tooltip hoverable_text"
-								title="ثبت ویژگی"
-								data-bs-toggle="tooltip"
-								data-bs-placement="top"></i>
-						</div>
-					</div>
+						</Form>
+					</Formik>
 					<hr />
 					<PaginatedTable
 						data={data}
