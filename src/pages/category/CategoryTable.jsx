@@ -6,6 +6,7 @@ import Actions from './tableAdditions/Actions';
 import { Outlet, useParams } from 'react-router-dom';
 import { convertDateToJalali } from '../../utils/convertDateToJalali';
 import { Alert, Confirm } from '../../utils/alert';
+import AddCategory from './AddCategory';
 
 const CategoryTable = () => {
 	const params = useParams();
@@ -57,6 +58,12 @@ const CategoryTable = () => {
 			elements: rowData => <Actions rowData={rowData} handleDeleteCategory={handleDeleteCategory} />
 		}
 	];
+
+	const searchParams = {
+    title: "جستجو",
+    placeholder: "قسمتی از عنوان را وارد کنید",
+    searchField: "title",
+  };
 	return (
 		<>
 			<Outlet />
@@ -65,9 +72,11 @@ const CategoryTable = () => {
 				dataInfo={dataInfo}
 				additionField={additionField}
 				numOfPage={7}
-				setForceRender={setForceRender}
 				loading={loading}
-			/>
+				searchParams={searchParams}
+			>
+				<AddCategory  setForceRender={setForceRender}/>
+			</PaginatedTable>
 		</>
 	);
 };

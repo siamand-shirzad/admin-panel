@@ -1,8 +1,7 @@
-import { useEffect, useState } from 'react';
-import AddCategory from '../pages/category/AddCategory';
+import {  useEffect, useState } from 'react';
 import SpinnerLoad from './SpinnerLoad';
 
-const PaginatedTable = ({ data, dataInfo, additionField, numOfPage, setForceRender, loading }) => {
+const PaginatedTable = ({ data, dataInfo, additionField, numOfPage, children, loading,searchParams }) => {
 	const [initData, setInitData] = useState(data);
 	const [tableData, setTableData] = useState([]);
 	const [currentPage, setCurrentPage] = useState(1);
@@ -23,7 +22,7 @@ const PaginatedTable = ({ data, dataInfo, additionField, numOfPage, setForceRend
 		setTableData(initData.slice(start, end));
 	}, [currentPage, initData]);
 	useEffect(() => {
-		setInitData(data.filter(d => d.title.includes(searchChar)));
+		setInitData(data.filter(d => d[searchParams.searchField].includes(searchChar)));
 		setCurrentPage(1);
 	}, [searchChar, data]);
 
@@ -35,14 +34,14 @@ const PaginatedTable = ({ data, dataInfo, additionField, numOfPage, setForceRend
 						<input
 							type="text"
 							className="form-control"
-							placeholder="قسمتی از عنوان را وارد کنید"
+							placeholder={searchParams.placeholder}
 							onChange={e => setSearchChar(e.target.value)}
 						/>
-						<span className="input-group-text">جستجو</span>
+						<span className="input-group-text">{searchParams.title}</span>
 					</div>
 				</div>
 				<div className="col-2 col-md-6 col-lg-4 d-flex flex-column align-items-end">
-					<AddCategory setForceRender={setForceRender} />
+					{children}
 				</div>
 			</div>
 			{loading ? (
@@ -77,7 +76,7 @@ const PaginatedTable = ({ data, dataInfo, additionField, numOfPage, setForceRend
 					</table>
 				</div>
 			) : (
-				<h5 className="text-center my-5 text-danger ">هیچ دسته بندی یافت نشد</h5>
+				<h5 className="text-center my-5 text-danger ">هیچ رکوردی یافت نشد</h5>
 			)}
 			{pages.length > 1 ? (
 				<nav aria-label="Page navigation example" className="d-flex justify-content-center">
