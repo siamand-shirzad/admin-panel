@@ -48,32 +48,34 @@ const PaginatedTable = ({ data, dataInfo, additionField, numOfPage, setForceRend
 			{loading ? (
 				<SpinnerLoad colorClass={'text-primary'} />
 			) : data.length > 1 ? (
-				<table className="table table-responsive text-center table-hover table-bordered">
-					<thead className="table-secondary">
-						<tr>
-							{dataInfo.map(i => (
-								<th key={i.field}>{i.title}</th>
-							))}
-							{additionField
-								? additionField.map((a, index) => <th key={a.id + '__' + index}>{a.title}</th>)
-								: null}
-						</tr>
-					</thead>
-					<tbody>
-						{tableData.map(d => (
-							<tr key={d.id}>
+				<div className="table-responsive">
+					<table className="table text-center table-hover table-bordered">
+						<thead className="table-secondary">
+							<tr>
 								{dataInfo.map(i => (
-									<td key={i.field + '_' + d.id}>{d[i.field]}</td>
+									<th key={i.field}>{i.title}</th>
 								))}
 								{additionField
-									? additionField.map((a, index) => (
-											<td key={a.id + '__' + index}>{a.elements(d)}</td>
-									  ))
+									? additionField.map((a, index) => <th key={a.id + '__' + index}>{a.title}</th>)
 									: null}
 							</tr>
-						))}
-					</tbody>
-				</table>
+						</thead>
+						<tbody>
+							{tableData.map(d => (
+								<tr key={d.id}>
+									{dataInfo.map(i => (
+										<td key={i.field + '_' + d.id}>{d[i.field]}</td>
+									))}
+									{additionField
+										? additionField.map((a, index) => (
+												<td key={a.id + '__' + index}>{a.elements(d)}</td>
+										  ))
+										: null}
+								</tr>
+							))}
+						</tbody>
+					</table>
+				</div>
 			) : (
 				<h5 className="text-center my-5 text-danger ">هیچ دسته بندی یافت نشد</h5>
 			)}
