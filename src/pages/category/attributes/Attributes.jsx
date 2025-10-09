@@ -4,7 +4,7 @@ import PaginatedTable from '../../../components/PaginatedTable';
 import PrevPageButton from '../../../components/PrevPageButton';
 import ShowInFilter from './ShowInFilter';
 import AttrAction from './AttrAction';
-import { addCategoryAttrService, getCategoryAttrsService } from '../../../services/categoryAttr';
+import { addCategoryAttrService, editCategoryAttrService, getCategoryAttrsService } from '../../../services/categoryAttr';
 import { Form, Formik } from 'formik';
 import FormikControl from '../../../components/form/FormikControl';
 import * as Yup from 'yup';
@@ -31,12 +31,28 @@ const onSubmit = async (values, actions, catId, setData, attrToEdit, setAttrToEd
 			...values,
 			in_filter: values.in_filter ? 1 : 0
 		};
-		const res = await addCategoryAttrService(catId, values);
-		console.log(res);
+		if (attrToEdit) {
+			const res = await editCategoryAttrService(attrToEdit.id, values)
+			console.log(res);
+			if (res.status === 200) {
+				setData(oldData=>{
+					const newData = [...oldData]
+					const index = newData.findIndex(i=>i.id === attrToEdit.id)
+					newData[index] = res.data.data
+					return newData
+				})
+				Alert('انجام شد', res.data.message, 'success')
+				setAttrToEdit(null)
+			}
+			
+		} else {
+			const res = await addCategoryAttrService(catId, values);
+			console.log(res);
 
-		if (res.status === 201) {
-			Alert('انجام شد', res.data.message, 'success');
-			setData(oldData => [...oldData, res.data.data]);
+			if (res.status === 201) {
+				Alert('انجام شد', res.data.message, 'success');
+				setData(oldData => [...oldData, res.data.data]);
+			}
 		}
 	} catch (error) {
 		console.log(error.message);
@@ -47,12 +63,13 @@ const Attributes = () => {
 	const [data, setData] = useState([]);
 	const [loading, setLoading] = useState(false);
 	const [attrToEdit, setAttrToEdit] = useState(null);
+	const [reInitialValues, setReInitialValues] = useState(null);
 
 	const handleGetCategoryAttrs = async () => {
 		setLoading(true);
 		try {
 			const res = await getCategoryAttrsService(location.state.categoryData.id);
-			console.log(res.data.data);
+			// console.log(res.data.data);
 			if (res.status === 200) {
 				setData(res.data.data);
 			}
@@ -87,6 +104,15 @@ const Attributes = () => {
 	useEffect(() => {
 		handleGetCategoryAttrs(location.state.categoryData.id);
 	}, []);
+	useEffect(() => {
+		if (attrToEdit)
+			setReInitialValues({
+				title: attrToEdit.title,
+				unit: attrToEdit.unit,
+				in_filter: attrToEdit.in_filter ? true : false
+			});
+		else setReInitialValues(null);
+	}, [attrToEdit]);
 
 	return (
 		<>
@@ -97,11 +123,12 @@ const Attributes = () => {
 			<div className="container">
 				<div className="row justify-content-center">
 					<Formik
-						initialValues={initialValues}
+						initialValues={reInitialValues || initialValues}
 						onSubmit={(values, actions) =>
 							onSubmit(values, actions, location.state.categoryData.id, setData, attrToEdit, setAttrToEdit)
 						}
-						validationSchema={validationSchema}>
+						validationSchema={validationSchema}
+						enableReinitialize>
 						<Form>
 							<div
 								className={`row my-3 ${
@@ -123,7 +150,7 @@ const Attributes = () => {
 									className="col-md-6 col-lg-4 my-1"
 									placeholder="واحد ویژگی جدید"
 								/>
-								<div className="col-8 col-lg-2 my-1">
+								<div className="col-8 col-lg-2 ">
 									<FormikControl control="switch" name="in_filter" label="نمایش در فیلتر" />
 								</div>
 								<div className="col-4 col-lg-2 d-flex justify-content-center align-items-start my-1">
