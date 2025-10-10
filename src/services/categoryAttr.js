@@ -10,3 +10,6 @@ export const addCategoryAttrService = (categoryId, data)=>{
 export const editCategoryAttrService = (attrId, data)=>{
     return httpService(`/admin/categories/attributes/${attrId}`, 'put', data)
 }
+export const deleteCategoryAttrService = (attrId)=>{
+    return httpService(`/admin/categories/attributes/${attrId}`, 'delete' )
+}

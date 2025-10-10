@@ -4,12 +4,17 @@ import PaginatedTable from '../../../components/PaginatedTable';
 import PrevPageButton from '../../../components/PrevPageButton';
 import ShowInFilter from './ShowInFilter';
 import AttrAction from './AttrAction';
-import { addCategoryAttrService, editCategoryAttrService, getCategoryAttrsService } from '../../../services/categoryAttr';
+import {
+	addCategoryAttrService,
+	deleteCategoryAttrService,
+	editCategoryAttrService,
+	getCategoryAttrsService
+} from '../../../services/categoryAttr';
 import { Form, Formik } from 'formik';
 import FormikControl from '../../../components/form/FormikControl';
 import * as Yup from 'yup';
 import SubmitButton from '../../../components/form/SubmitButton';
-import { Alert } from '../../../utils/alert';
+import { Alert, Confirm } from '../../../utils/alert';
 
 const initialValues = {
 	title: '',
@@ -32,19 +37,18 @@ const onSubmit = async (values, actions, catId, setData, attrToEdit, setAttrToEd
 			in_filter: values.in_filter ? 1 : 0
 		};
 		if (attrToEdit) {
-			const res = await editCategoryAttrService(attrToEdit.id, values)
+			const res = await editCategoryAttrService(attrToEdit.id, values);
 			console.log(res);
 			if (res.status === 200) {
-				setData(oldData=>{
-					const newData = [...oldData]
-					const index = newData.findIndex(i=>i.id === attrToEdit.id)
-					newData[index] = res.data.data
-					return newData
-				})
-				Alert('انجام شد', res.data.message, 'success')
-				setAttrToEdit(null)
+				setData(oldData => {
+					const newData = [...oldData];
+					const index = newData.findIndex(i => i.id === attrToEdit.id);
+					newData[index] = res.data.data;
+					return newData;
+				});
+				Alert('انجام شد', res.data.message, 'success');
+				setAttrToEdit(null);
 			}
-			
 		} else {
 			const res = await addCategoryAttrService(catId, values);
 			console.log(res);
@@ -52,6 +56,7 @@ const onSubmit = async (values, actions, catId, setData, attrToEdit, setAttrToEd
 			if (res.status === 201) {
 				Alert('انجام شد', res.data.message, 'success');
 				setData(oldData => [...oldData, res.data.data]);
+				actions.resetForm()
 			}
 		}
 	} catch (error) {
@@ -79,6 +84,20 @@ const Attributes = () => {
 			setLoading(false);
 		}
 	};
+const handleDeleteCategoryAttr = async attr => {
+  const result = await Confirm(`حذف ${attr.title}`, 'آیا از حذف این رکورد اطمینان دارید؟');
+  if (!result.isConfirmed) return; // اگر کاربر لغو کرد، خروج
+
+  try {
+    const res = await deleteCategoryAttrService(attr.id);
+    if (res.status === 200) {
+      Alert('انجام شد', res.data?.message || 'با موفقیت حذف شد', 'success');
+      setData(lastData => lastData.filter(d => d.id !== attr.id));
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
 	const dataInfo = [
 		{ field: 'id', title: '#' },
 		{ field: 'title', title: 'عنوان محصول' },
@@ -91,7 +110,14 @@ const Attributes = () => {
 		},
 		{
 			title: 'عملیات',
-			elements: rowData => <AttrAction rowData={rowData} attrToEdit={attrToEdit} setAttrToEdit={setAttrToEdit} />
+			elements: rowData => (
+				<AttrAction
+					rowData={rowData}
+					attrToEdit={attrToEdit}
+					setAttrToEdit={setAttrToEdit}
+					handleDeleteCategoryAttr={handleDeleteCategoryAttr}
+				/>
+			)
 		}
 	];
 
