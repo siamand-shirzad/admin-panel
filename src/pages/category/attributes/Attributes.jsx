@@ -84,20 +84,20 @@ const Attributes = () => {
 			setLoading(false);
 		}
 	};
-const handleDeleteCategoryAttr = async attr => {
-  const result = await Confirm(`حذف ${attr.title}`, 'آیا از حذف این رکورد اطمینان دارید؟');
-  if (!result.isConfirmed) return; // اگر کاربر لغو کرد، خروج
+	const handleDeleteCategoryAttr = async attr => {
+		const result = await Confirm(`حذف ${attr.title}`, 'آیا از حذف این رکورد اطمینان دارید؟');
+		if (!result.isConfirmed) return; // اگر کاربر لغو کرد، خروج
 
-  try {
-    const res = await deleteCategoryAttrService(attr.id);
-    if (res.status === 200) {
-      Alert('انجام شد', res.data?.message || 'با موفقیت حذف شد', 'success');
-      setData(lastData => lastData.filter(d => d.id !== attr.id));
-    }
-  } catch (error) {
-    console.error(error);
-  }
-};
+		try {
+			const res = await deleteCategoryAttrService(attr.id);
+			if (res.status === 200) {
+				Alert('انجام شد', res.data?.message || 'با موفقیت حذف شد', 'success');
+				setData(lastData => lastData.filter(d => d.id !== attr.id));
+			}
+		} catch (error) {
+			console.error(error);
+		}
+	};
 	const dataInfo = [
 		{ field: 'id', title: '#' },
 		{ field: 'title', title: 'عنوان محصول' },
