@@ -2,6 +2,8 @@ import axios from "axios"
 import config from './config.json'
 import { Alert } from "../utils/alert";
 
+export const apiPath = config.onlinePath
+
 axios.interceptors.response.use((res)=>{
     if (res.status!= 200 && res.status!= 201) {
         Alert("مشکل   !",res.data.title,"warning")
@@ -18,7 +20,7 @@ axios.interceptors.response.use((res)=>{
 const httpService = (url, method, data=null)=>{
     const tokenInfo = JSON.parse(localStorage.getItem('loginToken'))
     return axios({
-        url: config.onlineApi+url,
+        url: apiPath+"/api"+url,
         method,
         data,
         headers:{
