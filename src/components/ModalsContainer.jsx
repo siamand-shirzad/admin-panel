@@ -18,7 +18,7 @@ const ModalsContainer = ({ children, title, id, fullscreen }) => {
 						</div>
 						<div className="modal-body">{children}</div>
 						<div className="modal-footer">
-							<button type="button" className="btn btn-secondary" data-bs-dismiss="modal">
+							<button type="button" className="btn btn-secondary btn-sm" data-bs-dismiss="modal">
 								انصراف
 							</button>
 						</div>
