@@ -14,7 +14,13 @@ import { Alert } from "../../utils/alert";
     console.log(res);
     if (res.status === 201) {
         Alert('انجام شد', res.data.message, 'success');
+        actions.resetForm()
         setData(lastData=>[...lastData, res.data.data])
+        
+        // 👇 بستن مودال بعد از موفقیت
+        const modalEl = document.getElementById('add_brand_modal'); // id مودال
+        const modalInstance = bootstrap.Modal.getInstance(modalEl); // گرفتن instance مودال باز شده
+        modalInstance.hide(); // بستن مودال
     }
   };
   
