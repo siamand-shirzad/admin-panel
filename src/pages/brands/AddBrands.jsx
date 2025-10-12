@@ -6,7 +6,7 @@ import SubmitButton from '../../components/form/SubmitButton';
 import { useEffect, useState } from 'react';
 import { apiPath } from '../../services/httpService';
 
-const AddBrands = ({ setData, brandToEdit }) => {
+const AddBrands = ({ setData, brandToEdit ,setBrandToEdit }) => {
 	const [reInitValues, setReInitValues] = useState(null);
 	useEffect(() => {
 		if (brandToEdit) {
@@ -27,7 +27,7 @@ const AddBrands = ({ setData, brandToEdit }) => {
 				className="btn btn-success d-flex justify-content-center align-items-center"
 				data-bs-toggle="modal"
 				data-bs-target="#add_brand_modal"
-				onClick={() => setReInitValues(null)}>
+				onClick={() => setBrandToEdit(null)}>
 				<i className="fas fa-plus text-light"></i>
 			</button>
 			<ModalsContainer id={'add_brand_modal'} title={brandToEdit ? 'ویرایش برند' : 'افزودن برند'} fullscreen={false}>

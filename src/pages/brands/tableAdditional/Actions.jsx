@@ -1,4 +1,4 @@
-const Actions = ({ rowData, setBrandToEdit}) => {
+const Actions = ({ rowData, setBrandToEdit,handleDeleteBrand}) => {
   return (
     <>
       <i
@@ -15,6 +15,7 @@ const Actions = ({ rowData, setBrandToEdit}) => {
         title="حذف برند"
         data-bs-toggle="tooltip"
         data-bs-placement="top"
+        onClick={()=>handleDeleteBrand(rowData)}
       ></i>
     </>
   );

@@ -12,7 +12,6 @@ export const initialValues = {
 export const onSubmit = async (values, actions, setData, brandToEdit) => {
 	if (brandToEdit) {
 		const res = await editBrandService(brandToEdit.id, values);
-		console.log(res);
 		if (res.status == 200) {
 			Alert('انجام شد', res.data.message, 'success');
 			// 👇 بستن مودال بعد از موفقیت
@@ -29,7 +28,6 @@ export const onSubmit = async (values, actions, setData, brandToEdit) => {
 		}
 	} else {
 		const res = await addNewBrandService(values);
-		console.log(res);
 		if (res.status === 201) {
 			Alert('انجام شد', res.data.message, 'success');
 			actions.resetForm();

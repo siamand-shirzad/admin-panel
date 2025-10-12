@@ -26,3 +26,7 @@ export const editBrandService = (id,data) => {
   }
   return httpService(`/admin/brands/${id}`, "post", data);
 };
+
+export const deleteBrandService =(id)=>{
+  return httpService(`/admin/brands/${id}`,'delete')
+}
