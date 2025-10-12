@@ -8,6 +8,7 @@ import { apiPath } from '../../services/httpService';
 const BrandsTable = () => {
 	const [data, setData] = useState([]);
 	const [loading, setLoading] = useState(false);
+	const [brandToEdit, setBrandToEdit] = useState(null)
 
 	const dataInfo = [
 		{ field: 'id', title: '#' },
@@ -17,7 +18,7 @@ const BrandsTable = () => {
 	];
 	const additionField = [
 		{ title: 'لوگو', elements: (rowData) => rowData.logo ? <img src={apiPath+"/"+rowData.logo} width="40" /> : null },
-		{ title: 'عملیات', elements: (rowData) => <Actions rowData={rowData} /> }
+		{ title: 'عملیات', elements: (rowData) => <Actions rowData={rowData} setBrandToEdit={setBrandToEdit} /> }
 	];
 	const searchParams = {
 		title: 'جستجو',
@@ -46,7 +47,7 @@ const BrandsTable = () => {
 				numOfPage={4}
 				loading={loading}
 				searchParams={searchParams}>
-				<AddBrands setData={setData} />
+				<AddBrands setData={setData} brandToEdit={brandToEdit} setBrandToEdit={setBrandToEdit} />
 			</PaginatedTable>
 		</>
 	);

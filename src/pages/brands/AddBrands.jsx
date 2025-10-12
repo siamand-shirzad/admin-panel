@@ -3,23 +3,41 @@ import { Formik, Form } from 'formik';
 import { initialValues, onSubmit, validationSchema } from './core';
 import FormikControl from '../../components/form/FormikControl';
 import SubmitButton from '../../components/form/SubmitButton';
+import { useEffect, useState } from 'react';
+import { apiPath } from '../../services/httpService';
 
-const AddBrands = ({ setData }) => {
+const AddBrands = ({ setData, brandToEdit }) => {
+	const [reInitValues, setReInitValues] = useState(null);
+	useEffect(() => {
+		if (brandToEdit) {
+			setReInitValues({
+				original_name: brandToEdit.original_name || '',
+				persian_name: brandToEdit.persian_name || '',
+				descriptions: brandToEdit.descriptions || '',
+				logo: null
+			});
+		} else {
+			setReInitValues(null);
+		}
+	}, [brandToEdit]);
+
 	return (
 		<>
 			<button
 				className="btn btn-success d-flex justify-content-center align-items-center"
 				data-bs-toggle="modal"
-				data-bs-target="#add_brand_modal">
+				data-bs-target="#add_brand_modal"
+				onClick={() => setReInitValues(null)}>
 				<i className="fas fa-plus text-light"></i>
 			</button>
-			<ModalsContainer id={'add_brand_modal'} title={'افزودن برند'} fullscreen={false}>
+			<ModalsContainer id={'add_brand_modal'} title={brandToEdit ? 'ویرایش برند' : 'افزودن برند'} fullscreen={false}>
 				<div className="container">
 					<div className="row justify-content-center">
 						<Formik
-							initialValues={initialValues}
-							onSubmit={(values, actions) => onSubmit(values, actions, setData)}
-							validationSchema={validationSchema}>
+							initialValues={reInitValues || initialValues}
+							onSubmit={(values, actions) => onSubmit(values, actions, setData,brandToEdit)}
+							validationSchema={validationSchema}
+							enableReinitialize>
 							<Form>
 								<FormikControl
 									control="input"
@@ -36,6 +54,11 @@ const AddBrands = ({ setData }) => {
 									placeholder="کیبرد را در حالت فارسی قرار دهید"
 								/>
 								<FormikControl control="textarea" name="descriptions" label="توضیحات" placeholder="توضیحات" />
+								{brandToEdit ? (
+									<div className='btn_box text-center col-12 py-3 ' >
+										<img src={apiPath + '/' + brandToEdit.logo} width={'60'} alt="" />
+									</div>
+								) : null}
 								<FormikControl control="file" name="logo" label="تصویر" placeholder="تصویر" />
 
 								<div className="btn_box text-center col-12">
