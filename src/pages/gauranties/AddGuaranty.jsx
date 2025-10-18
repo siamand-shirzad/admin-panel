@@ -1,4 +1,3 @@
-import React from 'react';
 import ModalsContainer from '../../components/ModalsContainer';
 
 const AddGuaranty = () => {

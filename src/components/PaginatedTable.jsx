@@ -46,7 +46,7 @@ const PaginatedTable = ({ data, dataInfo, additionField, numOfPage, children, lo
 			</div>
 			{loading ? (
 				<SpinnerLoad colorClass={'text-primary'} />
-			) : data.length > 1 ? (
+			) : data.length >= 1 ? (
 				<div className="table-responsive">
 					<table className="table text-center table-hover table-bordered">
 						<thead className="table-secondary">
