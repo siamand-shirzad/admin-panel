@@ -1,8 +1,6 @@
-import { addNewGuarantyService } from '../../services/guaranty';
+import { addNewGuarantyService, editGuarantyService } from '../../services/guaranty';
 import { Alert } from '../../utils/alert';
-import * as Yup from "yup";
-
-
+import * as Yup from 'yup';
 
 export const initialValues = {
   title: '',
@@ -20,12 +18,26 @@ export const validationSchema = Yup.object({
   length_unit: Yup.string().matches(/^[\u0600-\u06FF\sa-zA-Z0-9@!%$?&]+$/, 'فقط از اعداد و حروف لاتین استفاده شود')
 });
 
-export const onsubmit = async (values, actions, setData) => {
-  const res = await addNewGuarantyService(values);
-  console.log(res);
-  
-  if (res.status == 201) {
-    Alert('انجام شد', res.data.message, 'success');
-    setData(prev => [...prev, res.data.data]);
+export const onsubmit = async (values, actions, setData, guarantyToEdit) => {
+  if (guarantyToEdit) {
+    const res = await editGuarantyService(guarantyToEdit.id, values);
+    console.log(res);
+    if (res.status == 200) {
+      Alert('انجام شد', res.data.message, 'success');
+      setData(lastData=>{
+        let newData = [...lastData]
+        let index = newData.findIndex(d=> d.id == guarantyToEdit.id )
+        newData[index] = res.data.data
+        return newData
+      })
+    }
+  } else {
+    const res = await addNewGuarantyService(values);
+    console.log(res);
+
+    if (res.status == 201) {
+      Alert('انجام شد', res.data.message, 'success');
+      setData(prev => [...prev, res.data.data]);
+    }
   }
 };

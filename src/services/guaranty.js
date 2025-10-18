@@ -8,8 +8,8 @@ export const addNewGuarantyService =(data)=>{
   return httpService(`/admin/guarantees`,"post",data)
 }
 export const editGuarantyService =(guarantyId,data)=>{
-  return httpService(`/admin/guarantees${guarantyId}`,"put",data)
+  return httpService(`/admin/guarantees/${guarantyId}`,"put",data)
 }
-export const deleteGuarantyService =(guarantyId,data)=>{
-  return httpService(`/admin/guarantees${guarantyId}`,"delete")
+export const deleteGuarantyService =(guarantyId)=>{
+  return httpService(`/admin/guarantees/${guarantyId}`,"delete")
 }

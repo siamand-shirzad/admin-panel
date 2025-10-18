@@ -1,4 +1,4 @@
-const Actions = ({ rowData}) => {
+const Actions = ({ rowData,setGuarantyToEdit}) => {
   return (
     <>
       <i
@@ -7,6 +7,7 @@ const Actions = ({ rowData}) => {
         data-bs-placement="top"
         data-bs-toggle="modal"
         data-bs-target="#add_guarantee_modal"
+        onClick={()=>setGuarantyToEdit(rowData)}
       ></i>
 
       <i
