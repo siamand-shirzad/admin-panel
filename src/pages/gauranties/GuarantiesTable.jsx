@@ -49,7 +49,7 @@ const GuarantiesTable = () => {
 		<PaginatedTable data={data}
 				dataInfo={dataInfo}
 				additionField={additionField}
-				numOfPage={4}
+				numOfPage={8}
 				loading={loading}
 				searchParams={searchParams} 
 		>
