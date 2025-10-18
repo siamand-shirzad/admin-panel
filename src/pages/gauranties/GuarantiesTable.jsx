@@ -1,13 +1,24 @@
 import { useEffect, useState } from 'react';
 import PaginatedTable from '../../components/PaginatedTable';
 import AddGuaranty from './AddGuaranty';
-import { getAllGuarantiesService } from '../../services/guaranty';
+import { deleteGuarantyService, getAllGuarantiesService } from '../../services/guaranty';
 import Actions from './tableAction/Actions';
+import { Alert, Confirm } from '../../utils/alert';
 
 const GuarantiesTable = () => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
   const [guarantyToEdit, setGuarantyToEdit] = useState(null);
+  const handleDeleteGuaranty = async guaranty => {
+    const resault = await Confirm('حذف برند ', `آیا از حذف ${guaranty.title}مطعن هستید؟`);
+    if (!resault.isConfirmed) return;
+    const res = await deleteGuarantyService(guaranty.id);
+    if (res.status == 200) {
+      Alert('انجام شد', res.data?.message || 'با موفقیت حذف شد', 'success');
+      setData(prev => prev.filter(i => i.id !== guaranty.id));
+    }
+  };
+
   const dataInfo = [
     { field: 'id', title: '#' },
     { field: 'title', title: 'عنوان' },
@@ -18,7 +29,9 @@ const GuarantiesTable = () => {
   const additionField = [
     {
       title: 'عملیات',
-      elements: rowData => <Actions rowData={rowData} setGuarantyToEdit={setGuarantyToEdit} />
+      elements: rowData => (
+        <Actions rowData={rowData} setGuarantyToEdit={setGuarantyToEdit} handleDeleteGuaranty={handleDeleteGuaranty} />
+      )
     }
   ];
   const searchParams = {

@@ -1,4 +1,4 @@
-const Actions = ({ rowData,setGuarantyToEdit}) => {
+const Actions = ({ rowData,setGuarantyToEdit,handleDeleteGuaranty}) => {
   return (
     <>
       <i
@@ -15,6 +15,7 @@ const Actions = ({ rowData,setGuarantyToEdit}) => {
         title="حذف گارانتی"
         data-bs-toggle="tooltip"
         data-bs-placement="top"
+        onClick={()=>handleDeleteGuaranty(rowData)}
       ></i>
     </>
   );
