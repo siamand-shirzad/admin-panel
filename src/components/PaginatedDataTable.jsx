@@ -21,6 +21,12 @@ const PaginatedDataTable = ({
       handleSearch(char);
     }, 2000);
   };
+  const handleKeyDown =(e) => { 
+    if (e.key == 'Enter') {
+      handleSearch(e.target.value)
+      clearTimeout(timeout)
+    }
+   }
 
   useEffect(() => {
     let pArr = [];
@@ -38,6 +44,7 @@ const PaginatedDataTable = ({
               className="form-control"
               placeholder={searchParams.placeholder}
               onChange={e => handleSetSearchChar(e.target.value)}
+              onKeyDown={handleKeyDown}
             />
             <span className="input-group-text">{searchParams.title}</span>
           </div>
