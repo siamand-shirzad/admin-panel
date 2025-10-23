@@ -21,12 +21,12 @@ const PaginatedDataTable = ({
       handleSearch(char);
     }, 2000);
   };
-  const handleKeyDown =(e) => { 
+  const handleKeyDown = e => {
     if (e.key == 'Enter') {
-      handleSearch(e.target.value)
-      clearTimeout(timeout)
+      handleSearch(e.target.value);
+      clearTimeout(timeout);
     }
-   }
+  };
 
   useEffect(() => {
     let pArr = [];
@@ -93,15 +93,32 @@ const PaginatedDataTable = ({
                 <span aria-hidden="true">&raquo;</span>
               </span>
             </li>
-            {pages.map(page => (
-              <li className="page-item" key={page}>
-                <span
-                  className={`page-link pointer ${currentPage == page ? 'alert alert-success' : ''}`}
-                  onClick={() => setCurrentPage(page)}>
-                  {page}
+            {currentPage > 3 ? (
+              <li className="page-item">
+                <span className="page-link pointer" onClick={() => setCurrentPage(1)}>
+                  first
                 </span>
               </li>
-            ))}
+            ) : null}
+            {pages.map(page => {
+              return page < currentPage + 3 && page > currentPage - 3 ? (
+                <li className="page-item" key={page}>
+                  <span
+                    className={`page-link pointer ${currentPage == page ? 'alert alert-success' : ''}`}
+                    onClick={() => setCurrentPage(page)}>
+                    {page}
+                  </span>
+                </li>
+              ) : null;
+            })}
+            {currentPage < pageCount - 3 ? (
+              <li className="page-item">
+                <span className="page-link fs-6 pointer" onClick={() => setCurrentPage(pageCount)}>
+                  last
+                </span>
+              </li>
+            ) : null}
+
             <li className="page-item">
               <span
                 className={`page-link pointer ${currentPage == pageCount ? 'disabled' : ''}`}
