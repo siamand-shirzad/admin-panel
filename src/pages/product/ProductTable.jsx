@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import PaginatedDataTable from "../../components/PaginatedDataTable";
 import AddProduct from "./AddProduct";
 import Actions from "./tableAddition/Actions";
-import { getProductsService } from "../../services/products";
+import { deleteProductsService, getProductsService } from "../../services/products";
+import { Alert, Confirm } from "../../utils/alert";
 
 const ProductTable = () => {
   const [data, setData] = useState([]);
@@ -25,7 +26,7 @@ const ProductTable = () => {
     {
       field: null,
       title: "عملیات",
-      elements: (rowData) => <Actions rowData={rowData}/>,
+      elements: (rowData) => <Actions rowData={rowData} handleDeleteProducts={handleDeleteProducts}/>,
     },
   ];
   const searchParams = {
@@ -42,6 +43,16 @@ const ProductTable = () => {
       
     }
   }
+  const handleDeleteProducts = async (product) => { 
+    const resualt = await Confirm('حذف محصول ', `آیا از حذف ${product.title}مطعن هستید؟`)
+    if(!resualt.isConfirmed) return
+    const res = await deleteProductsService(product.id)
+    if (res.status === 200) {
+      Alert('انجام شد', res.data?.message || 'با موفقیت حذف شد', 'success');
+      handleGetProducts(currentPage,countOnPage,searchChar)
+    }
+    
+   }
   const handleSearch =(char)=>{
     setSearchChar(char)
     handleGetProducts(1,countOnPage,char) 

@@ -1,4 +1,4 @@
-const Actions = ({ rowData}) => {
+const Actions = ({ rowData,handleDeleteProducts}) => {
   return (
     <>
       <i
@@ -19,6 +19,7 @@ const Actions = ({ rowData}) => {
         title="حذف محصول"
         data-bs-toggle="tooltip"
         data-bs-placement="top"
+        onClick={()=>handleDeleteProducts(rowData)}
       ></i>
     </>
   );
