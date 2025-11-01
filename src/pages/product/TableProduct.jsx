@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
 import PaginatedDataTable from "../../components/PaginatedDataTable";
-import AddProduct from "./AddProduct";
 import Actions from "./tableAddition/Actions";
 import { deleteProductsService, getProductsService } from "../../services/products";
 import { Alert, Confirm } from "../../utils/alert";
+import { Link } from "react-router-dom";
 
-const ProductTable = () => {
+const TableProduct = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [searchChar, setSearchChar] = useState("") 
   const [currentPage, setCurrentPage] = useState(1) // صفحه حال حاضر
-  const [countOnPage, setCountOnPage] = useState(1) // تعداد محصول در هر صفحه
+  const [countOnPage, setCountOnPage] = useState(4) // تعداد محصول در هر صفحه
   const [pageCount, setPageCount] = useState(0) // تعداد کل صفحات
 
   const dataInfo = [
@@ -71,10 +71,14 @@ const ProductTable = () => {
         setCurrentPage={setCurrentPage}
         pageCount={pageCount}
         handleSearch={handleSearch}>
-        <AddProduct />
+        <Link to={'/products/add-product'}>
+          <span className="btn btn-success d-flex justify-content-center align-items-center ">
+            <i className="fa fa-plus text-light"></i>
+          </span>
+        </Link>
       </PaginatedDataTable>
     </>
   );
 };
 
-export default ProductTable;
+export default TableProduct;
