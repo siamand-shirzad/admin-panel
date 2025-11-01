@@ -3,7 +3,7 @@ import FormikError from "./FormikError";
 
 const Select = ({options, name, label, className,firstItem=" دسته والد را انتخاب کنید... ",handleOnchange}) => {
   return (
-        <div className={`col-12 ${className}`}>
+        <div className={` ${className}`}>
             <div className="input-group mb-3 dir_ltr">
                 <FastField>
                     {({form})=>{

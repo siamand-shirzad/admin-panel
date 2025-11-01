@@ -72,17 +72,16 @@ const AddProduct = () => {
                   firstItem="دسته مورد نظر را انتخاب کنبد..."
                 />
               ) : null}
-
-              <div className="col-12 col-md-6 col-lg-8">
-                <span className="chips_elem">
-                  <i className="fas fa-times text-danger"></i>
-                  دسته فلان
-                </span>
-                <span className="chips_elem">
-                  <i className="fas fa-times text-danger"></i>
-                  دسته فلان
-                </span>
-              </div>
+            </div>
+            <div className="col-12 col-md-6 col-lg-8">
+              <span className="chips_elem">
+                <i className="fas fa-times text-danger"></i>
+                دسته فلان
+              </span>
+              <span className="chips_elem">
+                <i className="fas fa-times text-danger"></i>
+                دسته فلان
+              </span>
             </div>
 
             <div className="col-12 col-md-6 col-lg-8">
