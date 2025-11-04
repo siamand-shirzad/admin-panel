@@ -10,7 +10,7 @@ const Select = ({options, name, label, className,firstItem=" دسته والد �
                         return (
                             <FastField as="select" className="form-control" id={name} name={name} 
                             onChange={handleOnchange ? (e)=>handleOnchange(e.target.value, form) : ()=>{}}>
-                                <option value=""> {firstItem} </option>
+                                <option  value=""> {firstItem} </option>
                                 {options.map((o) => (
                                     <option key={o.id} value={o.id}> {o.value} </option>
                                 ))}
