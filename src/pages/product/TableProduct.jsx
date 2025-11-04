@@ -4,6 +4,7 @@ import Actions from "./tableAddition/Actions";
 import { deleteProductsService, getProductsService } from "../../services/products";
 import { Alert, Confirm } from "../../utils/alert";
 import { Link } from "react-router-dom";
+import AddButtonLink from "../../components/AddButtonLink";
 
 const TableProduct = () => {
   const [data, setData] = useState([]);
@@ -71,11 +72,7 @@ const TableProduct = () => {
         setCurrentPage={setCurrentPage}
         pageCount={pageCount}
         handleSearch={handleSearch}>
-        <Link to={'/products/add-product'}>
-          <span className="btn btn-success d-flex justify-content-center align-items-center ">
-            <i className="fa fa-plus text-light"></i>
-          </span>
-        </Link>
+          <AddButtonLink href={'/products/add-product'}/>
       </PaginatedDataTable>
     </>
   );

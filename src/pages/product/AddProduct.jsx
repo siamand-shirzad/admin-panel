@@ -5,6 +5,7 @@ import SpinnerLoad from '../../components/SpinnerLoad';
 import { getCategoriesService } from '../../services/category';
 import { initialValues, onSubmit, validationSchema } from './core';
 import FormikError from '../../components/form/FormikError';
+import PrevPageButton from '../../components/PrevPageButton';
 
 const AddProduct = () => {
   const [parentCategories, setparentCategories] = useState([]);
@@ -73,6 +74,9 @@ const AddProduct = () => {
           <Form>
             <div className="container">
               <h4 className="text-center my-3">افزودن محصول جدید</h4>
+              <div className="text-left col-md-6 col-lg-8 m-auto my-3">
+              <PrevPageButton/>
+            </div>
               <div className="row justify-content-center">
                 {parentCategories.length > 0 ? (
                   <FormikControl
