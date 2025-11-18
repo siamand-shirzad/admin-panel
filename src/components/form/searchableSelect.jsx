@@ -1,5 +1,5 @@
 import { ErrorMessage, FastField, Field } from 'formik';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useState } from 'react';
 import FormikError from './FormikError';
 
@@ -9,6 +9,7 @@ const SearchableSelect = ({ resultType, options, name, label, className, firstIt
   const [selectedItems, setSelectedItems] = useState([]);
   const [showItems, setShowItems] = useState(false);
   const [copyOptions, setCopyOptions] = useState(options);
+  const inputRef = useRef(null);
 
   const handleSelectItems = (selectedId, formik) => {
     if (selectedItems.findIndex(d => d.id == selectedId) == -1 && selectedId > 0) {
@@ -33,14 +34,34 @@ const SearchableSelect = ({ resultType, options, name, label, className, firstIt
       return newData;
     });
   };
+  useEffect(() => {
+    if (showItems) {
+      inputRef.current?.focus();
+    }
+  }, [showItems]);
+  useEffect(() => {
+    setCopyOptions(options);
+  }, [options]);
+  useEffect(() => {
+    const handleClick = () => setShowItems(false);
+    document.body.addEventListener('click', handleClick);
 
+    return () => {
+      document.body.removeEventListener('click', handleClick);
+    };
+  }, []);
   return (
     <Field>
       {({ form }) => {
         return (
-          <div className={`col-12 ${className} z-3`}>
-            <div className="input-group mb-3 dir_ltr pointer" onClick={() => setShowItems(!showItems)}>
-              <div className="form-control" id={name + '-select'}>
+          <div className={`col-12 ${className} `}>
+            <div
+              className="input-group mb-3 dir_ltr pointer  "
+              onClick={e => {
+                e.stopPropagation();
+                setShowItems(!showItems);
+              }}>
+              <div className="form-control " id={name + '-select'}>
                 {selectedItems.length > 0 ? (
                   selectedItems.map(selectedItem => (
                     <span className="chips_elem" key={selectedItem.id}>
@@ -53,16 +74,17 @@ const SearchableSelect = ({ resultType, options, name, label, className, firstIt
                 ) : (
                   <span className="text-secondary">{firstItem}</span>
                 )}
-                <div className={`multi_select_items_content  ${!showItems ? 'd-none' : ''}`}>
+                <div className={`multi_select_items_content  ${showItems ? 'visible' : 'd-none'}`}>
                   <input
+                    ref={inputRef}
                     type="text"
-                    className=" w-100 form-control"
-                    autoFocus={showItems}
+                    className="w-100 form-control"
+                    // autoFocus={showItems}
                     placeholder="قسمتی از عنوان مورد نظر را وارد کنید"
                     onClick={e => e.stopPropagation()}
                     onChange={e => setCopyOptions(options.filter(o => o.value.includes(e.target.value)))}
                   />
-                  <ul className="p-0">
+                  <ul className="p-0 ">
                     {copyOptions.map(o => (
                       <li
                         key={o.id}

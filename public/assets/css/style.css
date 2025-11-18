@@ -416,7 +416,7 @@ th {
     width: 100%;
     right: 0;
     top: 38px;
-    z-index: 1000;
+    z-index: 1060!important;
     border: 1px solid #ced4da;
     border-radius: 5px;
     box-shadow: -1px 7px 15px grey;
@@ -441,4 +441,19 @@ th {
 
 .is_inline .input-group{
     margin: 0 !important;
+}
+.z-4{
+		z-index: 4 !important;
+}
+.form-control:focus{
+	z-index: 1060 !important;
+
+}
+.input-group > .form-control:focus,
+.input-group > .form-control:hover
+{
+  z-index: 1060 !important;
+}
+.input-group .form-control{
+	z-index: unset!important;
 }

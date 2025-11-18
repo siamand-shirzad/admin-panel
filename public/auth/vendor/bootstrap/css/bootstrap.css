@@ -2822,7 +2822,7 @@ tbody.collapse.show {
 
 .input-group .form-control {
   position: relative;
-  z-index: 2;
+  z-index: unset;
   -ms-flex: 1 1 auto;
       flex: 1 1 auto;
   width: 1%;

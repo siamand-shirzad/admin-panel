@@ -4,8 +4,8 @@ import * as Yup from "yup";
     category_ids: "",
     title: "",
     price: "",
-    weight: null,
-    brand_id: null,
+    weight: '',
+    brand_id: '',
     color_ids: "",
     guarantee_ids: "",
     descriptions: "",
@@ -14,8 +14,8 @@ import * as Yup from "yup";
     image: null,
     alt_image: "",
     keywords: "",
-    stock: null,
-    discount: null,
+    stock: '',
+    discount: '',
   };
   
   export const onSubmit = async (values, actions) => {
