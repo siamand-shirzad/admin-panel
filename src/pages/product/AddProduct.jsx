@@ -120,7 +120,7 @@ const AddProduct = () => {
 
                 <FormikControl
                   label="عنوان *"
-                  className="col-md-6 col-lg-8 z-n1"
+                  className="col-md-6 col-lg-8"
                   control="input"
                   type="text"
                   name="title"
