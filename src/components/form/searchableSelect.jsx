@@ -5,11 +5,15 @@ import FormikError from './FormikError';
 
 // if resultType == "string" then:  "1-2-3"  else:   [1,2,3]
 
-const SearchableSelect = ({ resultType, options, name, label, className, firstItem }) => {
+const SearchableSelect = ({ resultType, options, name, label, className, firstItem, initialItems }) => {
   const [selectedItems, setSelectedItems] = useState([]);
   const [showItems, setShowItems] = useState(false);
   const [copyOptions, setCopyOptions] = useState(options);
   const inputRef = useRef(null);
+
+  useEffect(() => {
+    setSelectedItems(initialItems);
+  }, [initialItems]);
 
   const handleSelectItems = (selectedId, formik) => {
     if (selectedItems.findIndex(d => d.id == selectedId) == -1 && selectedId > 0) {
@@ -53,6 +57,7 @@ const SearchableSelect = ({ resultType, options, name, label, className, firstIt
   return (
     <Field>
       {({ form }) => {
+
         return (
           <div className={`col-12 ${className} `}>
             <div
