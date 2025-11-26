@@ -1,4 +1,6 @@
 import * as Yup from "yup";
+import { createNewProductService } from "../../services/products";
+import { Alert } from "../../utils/alert";
   
   export const initialValues = {
     category_ids: "",
@@ -11,7 +13,7 @@ import * as Yup from "yup";
     descriptions: "",
     short_descriptions: "",
     cart_descriptions: "",
-    image: null,
+    image: '',
     alt_image: "",
     keywords: "",
     stock: '',
@@ -19,7 +21,10 @@ import * as Yup from "yup";
   };
   
   export const onSubmit = async (values, actions) => {
-
+    const res = await createNewProductService(values);
+    if (res.status == 200) {
+      Alert("انجام شد", res.data.message, "success");
+    }
   };
   
   export const validationSchema = Yup.object({
