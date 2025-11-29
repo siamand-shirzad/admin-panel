@@ -127,8 +127,7 @@ const AddProduct = () => {
       validationSchema={validationSchema}
       enableReinitialize>
       {formik => {
-        console.log(formik);
-        
+       
         return (
           <Form>
             <div className="container">
@@ -219,13 +218,21 @@ const AddProduct = () => {
                   initialItems={selectedGarantees}
                 />
 
-                <FormikControl
+                 {/* <FormikControl
                   label="توضیحات"
                   className="col-md-6 col-lg-8"
                   control="textarea"
                   name="descriptions"
                   placeholder="فقط از حروف واعداد استفاده شود"
+                />  */}
+                 <FormikControl
+                  label="توضیحات"
+                  className="col-md-6 col-lg-8"
+                  control="ckeditor"
+                  name="descriptions"
+                  placeholder="فقط از حروف واعداد استفاده شود"
                 />
+                
 
                 <FormikControl
                   label="توضیحات کوتاه"
