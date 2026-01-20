@@ -46,7 +46,7 @@ const CategoryTable = () => {
 
 	const dataInfo = [
 		{ field: 'id', title: '#' },
-		{ field: 'title', title: 'عنوان محصول' },
+		{ field: 'title', title: 'عنوان گروه' },
 		{ field: 'parent_id', title: 'والد' }
 	];
 

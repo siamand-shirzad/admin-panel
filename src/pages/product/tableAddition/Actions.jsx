@@ -14,6 +14,7 @@ const Actions = ({ rowData,handleDeleteProducts}) => {
         title="ثبت ویژگی"
         data-bs-toggle="modal"
         data-bs-target="#add_product_attr_modal"
+        onClick={()=>navigation(`/products/set-attr`,{state:{selectedProduct:rowData}})}
       ></i>
       <i
         className="fas fa-times text-danger mx-1 hoverable_text pointer has_tooltip"

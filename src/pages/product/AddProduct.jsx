@@ -150,11 +150,11 @@ const AddProduct = () => {
 
                 {mainCategories === 'waiting' ? <SpinnerLoad isSmall={true} colorClass="text-primary" /> : null}
                 <FormikControl
+                  label="دسته اصلی *"
                   className="col-md-6 col-lg-8"
                   control="searchableSelect"
                   options={typeof mainCategories == 'object' ? mainCategories : []}
                   name="category_ids"
-                  label="دسته اصلی *"
                   firstItem="دسته مورد نظر را انتخاب کنبد..."
                   resultType="string"
                   initialItems={selectedCategories}
