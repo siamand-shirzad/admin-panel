@@ -9,7 +9,7 @@ const PaginatedDataTable = ({
   currentPage,
   setCurrentPage,
   searchParams,
-  handleSearch
+  handleSearch,
 }) => {
   const [pages, setPages] = useState([]);
 
@@ -19,7 +19,7 @@ const PaginatedDataTable = ({
     clearTimeout(timeout);
     timeout = setTimeout(() => {
       handleSearch(char);
-    }, 2000);
+    }, 1000);
   };
   const handleKeyDown = e => {
     if (e.key == 'Enter') {
@@ -51,9 +51,9 @@ const PaginatedDataTable = ({
         </div>
         <div className="col-2 col-md-6 col-lg-4 d-flex flex-column align-items-end">{children}</div>
       </div>
-      {loading ? (
+      {loading ?
         <SpinnerLoad colorClass={'text-primary'} />
-      ) : tableData.length ? (
+      : tableData.length ?
         <div className="table-responsive">
           <table className="table  text-center table-hover table-bordered">
             <thead className="table-secondary">
@@ -67,22 +67,18 @@ const PaginatedDataTable = ({
               {tableData.map(d => (
                 <tr key={d.id}>
                   {dataInfo.map((i, index) =>
-                    i.field ? (
+                    i.field ?
                       <td key={i.field + '_' + d.id}>{d[i.field]}</td>
-                    ) : (
-                      <td key={d.id + '__' + i.id + '__' + index}>{i.elements(d)}</td>
-                    )
+                    : <td key={d.id + '__' + i.id + '__' + index}>{i.elements(d)}</td>,
                   )}
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
-      ) : (
-        <h5 className="text-center my-5 text-danger">هیچ رکوردی یافت نشد</h5>
-      )}
+      : <h5 className="text-center my-5 text-danger">هیچ رکوردی یافت نشد</h5>}
 
-      {pages.length > 1 ? (
+      {pages.length > 1 ?
         <nav aria-label="Page navigation example" className="d-flex justify-content-center">
           <ul className="pagination dir_ltr">
             <li className="page-item">
@@ -93,31 +89,31 @@ const PaginatedDataTable = ({
                 <span aria-hidden="true">&raquo;</span>
               </span>
             </li>
-            {currentPage > 3 ? (
+            {currentPage > 3 ?
               <li className="page-item">
                 <span className="page-link pointer" onClick={() => setCurrentPage(1)}>
                   first
                 </span>
               </li>
-            ) : null}
+            : null}
             {pages.map(page => {
-              return page < currentPage + 3 && page > currentPage - 3 ? (
-                <li className="page-item" key={page}>
-                  <span
-                    className={`page-link pointer ${currentPage == page ? 'alert alert-success' : ''}`}
-                    onClick={() => setCurrentPage(page)}>
-                    {page}
-                  </span>
-                </li>
-              ) : null;
+              return page < currentPage + 3 && page > currentPage - 3 ?
+                  <li className="page-item" key={page}>
+                    <span
+                      className={`page-link pointer ${currentPage == page ? 'alert alert-success' : ''}`}
+                      onClick={() => setCurrentPage(page)}>
+                      {page}
+                    </span>
+                  </li>
+                : null;
             })}
-            {currentPage < pageCount - 3 ? (
+            {currentPage < pageCount - 3 ?
               <li className="page-item">
                 <span className="page-link fs-6 pointer" onClick={() => setCurrentPage(pageCount)}>
                   last
                 </span>
               </li>
-            ) : null}
+            : null}
 
             <li className="page-item">
               <span
@@ -129,7 +125,7 @@ const PaginatedDataTable = ({
             </li>
           </ul>
         </nav>
-      ) : null}
+      : null}
     </>
   );
 };
