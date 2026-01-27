@@ -14,3 +14,7 @@ export const editProductsService = (productId,data) => {
 export const createNewProductService = (data) => {
   return httpService("/admin/products", "post",data.image ? convertToFormData(data) : data);
 };
+
+export const addProductAttrService = (productId, data)=>{
+  return httpService(`/admin/products/${productId}/add_attr`, 'post', data)
+}
